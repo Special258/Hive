@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HIVE Dashboard</title>
+<link rel="stylesheet" href="style.css"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow bg-glow-blue"></div>
+<div class="bg-glow bg-glow-purple"></div>
+<canvas id="particles"></canvas>
+
+<div class="app-layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo">
+        <span class="logo-text">HIVE</span>
+      </div>
+    </div>
+
+    <div class="sidebar-nav">
+      <!-- Add this inside .sidebar-nav, right after the INSIGHTS section -->
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">SWITCH ROLE</div>
+        <a href="admin.html" class="nav-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span style="color: #4A9EFF;">Admin Portal</span>
+        </a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">MAIN</div>
+        <a href="dashboard.html" class="nav-item active">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12L12 3l9 9"/><path d="M5 10v10h4v-6h6v6h4V10"/></svg>
+          <span>Overview</span>
+        </a>
+        <a href="sessions.html" class="nav-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><polyline points="10 9 15 12 10 15"/></svg>
+          <span>Live Sessions</span>
+          <span class="nav-badge">3</span>
+        </a>
+        <a href="#" class="nav-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20a6 6 0 0112 0"/></svg>
+          <span>My Skills</span>
+        </a>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">INSIGHTS</div>
+        <a href="#" class="nav-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>Analytics</span>
+        </a>
+        <a href="#" class="nav-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span>Skill Matching</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="user-card">
+        <div class="user-avatar">VG</div>
+        <div class="user-info">
+          <div class="user-name">Vandan Gujarati</div>
+          <div class="user-role">Learner · Tutor</div>
+        </div>
+        <div class="seu-badge">320 SEU</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <header class="page-header">
+      <div class="page-header-row">
+        <div><h1>Good evening, Vandan</h1><p>Your skill exchange snapshot for today.</p></div>
+        <button class="command-trigger" type="button" onclick="openCommandPalette()"><span>⌘</span> Quick actions <kbd>Ctrl K</kbd></button>
+      </div>
+    </header>
+
+    <section class="match-spotlight" aria-label="Smart match suggestions">
+      <div class="match-copy">
+        <span class="eyebrow">HIVE MATCH</span>
+        <h2>Your next great exchange is ready.</h2>
+        <p>We found learners who need JavaScript—the skill you are best at teaching right now.</p>
+        <div class="match-actions">
+          <button class="btn-primary" type="button" data-match="javascript">See my matches <span>→</span></button>
+          <button class="text-button" type="button" data-match="refresh">Refresh suggestions</button>
+        </div>
+      </div>
+      <div class="match-stack" id="match-stack">
+        <article class="match-profile featured"><span class="match-percent">98% fit</span><div class="match-avatar">AR</div><div><b>Aarav Raj</b><small>Wants to learn JavaScript</small></div><button type="button" class="match-plus" data-match="connect" aria-label="Connect with Aarav">+</button></article>
+        <article class="match-profile secondary"><span class="match-percent">94% fit</span><div class="match-avatar alt">SK</div><div><b>Siya Kapoor</b><small>Offers UI/UX feedback</small></div></article>
+      </div>
+    </section>
+
+    <!-- React stats component island -->
+    <div id="react-stats-root"></div>
+
+    <!-- MIDDLE GRID -->
+    <section class="cards-grid">
+      <!-- Upcoming sessions -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Upcoming sessions</div>
+          <a href="sessions.html" class="card-action">View all</a>
+        </div>
+
+        <div class="session-item">
+          <div class="session-avatar">JS</div>
+          <div class="session-info">
+            <div class="session-name">JavaScript for Beginners</div>
+            <div class="session-skill">Tutor: Patel Jal · SEU 40</div>
+          </div>
+          <div class="session-meta">
+            <div class="session-time">Today · 9:30 PM</div>
+            <span class="tag tag-live">LIVE</span>
+          </div>
+        </div>
+
+        <div class="session-item">
+          <div class="session-avatar">ML</div>
+          <div class="session-info">
+            <div class="session-name">Intro to Machine Learning</div>
+            <div class="session-skill">Tutor: Thakar Smit · SEU 60</div>
+          </div>
+          <div class="session-meta">
+            <div class="session-time">Tomorrow · 7:00 PM</div>
+            <span class="tag tag-soon">Upcoming</span>
+          </div>
+        </div>
+
+        <div class="session-item">
+          <div class="session-avatar">EN</div>
+          <div class="session-info">
+            <div class="session-name">Spoken English Practice</div>
+            <div class="session-skill">Peer exchange · SEU 25</div>
+          </div>
+          <div class="session-meta">
+            <div class="session-time">Sat · 5:00 PM</div>
+            <span class="tag tag-soon">Upcoming</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEU widget -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Skill Exchange Units</div>
+        </div>
+        <div class="seu-widget">
+          <div class="seu-ring">
+            <svg viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="48" stroke="rgba(148,163,184,.25)" stroke-width="7" fill="none"/>
+              <circle id="seu-progress" cx="60" cy="60" r="48"
+                stroke="url(#seuGrad)" stroke-width="7" fill="none"
+                stroke-linecap="round" stroke-dasharray="301" stroke-dashoffset="70"/>
+              <defs>
+                <linearGradient id="seuGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#4A9EFF"/>
+                  <stop offset="100%" stop-color="#7B6FFF"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="seu-center">
+              <div class="seu-val">320</div>
+              <div class="seu-lbl">Available SEU</div>
+            </div>
+          </div>
+          <div class="seu-info">
+            <div class="seu-info-item">
+              <span>+120</span>
+              Earned this week
+            </div>
+            <div class="seu-info-item">
+              <span>-80</span>
+              Spent on learning
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- BOTTOM GRID -->
+<section class="cards-grid">
+  <!-- Recent feedback -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Recent feedback</div>
+    </div>
+    <div class="feedback-card">
+      <div class="feedback-avatar">JP</div>
+      <div class="feedback-content">
+        <div class="feedback-skill">JavaScript Session</div>
+        <div class="feedback-rating">⭐ 5.0</div>
+        <div class="feedback-comment">"Clear explanations, great examples!"</div>
+      </div>
+    </div>
+    <div class="feedback-card">
+      <div class="feedback-avatar">ST</div>
+      <div class="feedback-content">
+        <div class="feedback-skill">Machine Learning Basics</div>
+        <div class="feedback-rating">⭐ 4.8</div>
+        <div class="feedback-comment">"Very practical approach."</div>
+      </div>
+    </div>
+    <div class="feedback-card">
+      <div class="feedback-avatar">CS</div>
+      <div class="feedback-content">
+        <div class="feedback-skill">English Practice</div>
+        <div class="feedback-rating">⭐ 4.9</div>
+        <div class="feedback-comment">"Helped my confidence a lot."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEU transactions -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">SEU transactions</div>
+    </div>
+    <div class="transactions">
+      <div class="transaction-row">
+        <span class="transaction-desc">Earned: JavaScript session</span>
+        <span class="transaction-amount earned">+40 SEU</span>
+        <div class="transaction-time">2h ago</div>
+      </div>
+      <div class="transaction-row">
+        <span class="transaction-desc">Spent: ML basics</span>
+        <span class="transaction-amount">-60 SEU</span>
+        <div class="transaction-time">1 day ago</div>
+      </div>
+      <div class="transaction-row">
+        <span class="transaction-desc">Earned: English practice</span>
+        <span class="transaction-amount earned">+25 SEU</span>
+        <div class="transaction-time">3 days ago</div>
+      </div>
+      <div class="transaction-row">
+        <span class="transaction-desc">Subscription bonus</span>
+        <span class="transaction-amount earned">+100 SEU</span>
+        <div class="transaction-time">5 days ago</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills progress chart -->
+<section class="cards-grid" style="grid-template-columns: 2fr 1fr; margin-bottom: 0;">
+  
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Your skill progress</div>
+    </div>
+    <div class="chart-container">
+      <canvas class="chart-canvas" id="skillChart" width="300" height="180"></canvas>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Subscription</div>
+      <span class="tag tag-done" style="background: rgba(255,255,255,0.06); color: var(--muted);">Free Tier</span>
+    </div>
+    
+    <div style="display: flex; flex-direction: column; height: calc(100% - 44px); justify-content: space-between;">
+      <div>
+        <div style="font-size: 20px; font-weight: 700; margin-bottom: 4px;">Basic Starter</div>
+        <div style="font-size: 13px; color: var(--muted); margin-bottom: 20px;">Standard matching & 3 sessions/wk</div>
+        
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 20px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="font-size: 13px; color: var(--muted);">Live Sessions Used</span>
+            <span style="font-size: 13px; font-weight: 600; color: #fff;">2 / 3</span>
+          </div>
+          <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
+            <div style="width: 66%; height: 100%; background: var(--blue); border-radius: 4px;"></div>
+          </div>
+          <div style="font-size: 11px; color: var(--muted); margin-top: 8px; text-align: right;">Resets in 2 days</div>
+        </div>
+      </div>
+      
+      <a href="subscription.html" style="text-decoration: none;">
+        <button class="btn-primary btn-full" style="background: linear-gradient(135deg, #f59e0b, #ea580c); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          Upgrade to Pro
+        </button>
+      </a>
+    </div>
+  </div>
+
+</section>
+</main>
+</div>
+<script type="module" src="/app.js"></script>
+<script type="module" src="components/main.jsx"></script>
+</body>
+</html>

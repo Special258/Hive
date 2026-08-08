@@ -1,0 +1,14 @@
+{
+  "users": [{ "id": "vandan", "name": "Vandan Gujarati", "email": "vandan@hive.local", "role": "learner", "seu": 320, "rating": 4.8, "skills": ["JavaScript", "UI/UX", "English", "Python"] }],
+  "sessions": [
+    { "id": "js-advanced", "title": "JavaScript Advanced", "tutor": "Jal Patel", "status": "live", "seu": 40, "time": "Live now", "topic": "JavaScript" },
+    { "id": "ml-basics", "title": "Machine Learning Basics", "tutor": "Smit Thakar", "status": "upcoming", "seu": 60, "time": "Starts in 10 min", "topic": "Machine Learning" },
+    { "id": "english-practice", "title": "Spoken English Practice", "tutor": "Vandan Gujarati", "status": "upcoming", "seu": 25, "time": "Tomorrow · 5:00 PM", "topic": "English" }
+  ],
+  "matches": [
+    { "id": "aarav", "name": "Aarav Raj", "initials": "AR", "fit": 98, "request": "Wants to learn JavaScript", "offers": "UI/UX feedback" },
+    { "id": "siya", "name": "Siya Kapoor", "initials": "SK", "fit": 94, "request": "Wants to learn JavaScript", "offers": "UI/UX feedback" },
+    { "id": "rohan", "name": "Rohan Mehta", "initials": "RM", "fit": 91, "request": "Wants to learn JavaScript", "offers": "English practice" }
+  ],
+  "connections": []
+}

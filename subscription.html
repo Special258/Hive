@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HIVE - Upgrade to Pro</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Specific Styles for the Pricing Page */
+    .pricing-section { padding: 120px 32px 80px; max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 10; }
+    .pricing-header h1 { font-size: clamp(36px, 5vw, 48px); font-weight: 800; margin-bottom: 16px; letter-spacing: -1px; }
+    .pricing-header p { font-size: 16px; color: var(--muted); margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    
+    /* The Toggle Switch */
+    .billing-toggle { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 48px; }
+    .toggle-label { font-size: 15px; font-weight: 600; color: var(--muted); transition: color 0.3s; cursor: pointer; }
+    .toggle-label.active { color: #fff; }
+    .discount-badge { background: rgba(34,197,94,.15); color: #22c55e; font-size: 11px; padding: 3px 8px; border-radius: 100px; margin-left: 6px; border: 1px solid rgba(34,197,94,.3); }
+    
+    .switch { position: relative; display: inline-block; width: 52px; height: 28px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.1); transition: .4s; border-radius: 34px; border: 1px solid var(--border); }
+    .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: #fff; transition: .4s; border-radius: 50%; }
+    input:checked + .slider { background-color: var(--blue); border-color: var(--blue); }
+    input:checked + .slider:before { transform: translateX(24px); }
+
+    /* Pricing Cards - UPDATED TO 3 COLUMNS */
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; text-align: left; }
+    
+    .pricing-card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 40px; position: relative; transition: all 0.3s; display: flex; flex-direction: column; }
+    .pricing-card:hover { border-color: rgba(74,158,255,0.3); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+    
+    /* Highlighted Pro Card */
+    .pricing-card.pro { background: rgba(13,17,32,0.8); border-color: var(--blue); box-shadow: 0 0 0 1px var(--blue), 0 20px 40px rgba(74,158,255,0.1); overflow: hidden; transform: scale(1.05); z-index: 2; }
+    .pricing-card.pro:hover { transform: scale(1.05) translateY(-5px); }
+    .pricing-card.pro::before { content: 'MOST POPULAR'; position: absolute; top: 0; left: 0; right: 0; background: var(--blue); color: #fff; text-align: center; font-size: 11px; font-weight: 800; letter-spacing: 1px; padding: 6px 0; }
+    .pricing-card.pro { padding-top: 50px; } /* extra padding for the banner */
+
+    .plan-name { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .plan-desc { font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.5; min-height: 40px; }
+    
+    .plan-price { font-size: 48px; font-weight: 800; color: #fff; margin-bottom: 8px; display: flex; align-items: baseline; gap: 4px; }
+    .price-currency { font-size: 24px; color: var(--muted); }
+    .price-period { font-size: 14px; color: var(--muted); font-weight: 500; }
+    
+    /* To show the billed annually text */
+    .billed-text { font-size: 12px; color: var(--muted); min-height: 18px; margin-bottom: 24px; }
+
+    .feature-list { list-style: none; margin-bottom: 32px; flex: 1; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--text); margin-bottom: 16px; }
+    .feature-list svg { color: var(--blue); flex-shrink: 0; margin-top: 2px; }
+    .feature-list .disabled { color: var(--muted); text-decoration: line-through; opacity: 0.5; }
+    .feature-list .disabled svg { color: var(--muted); }
+
+    /* Responsive adjustments */
+    @media(max-width: 1024px) {
+      .pricing-grid { grid-template-columns: 1fr; max-width: 450px; }
+      .pricing-card.pro { transform: scale(1); z-index: 1; }
+      .pricing-card.pro:hover { transform: translateY(-5px); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow bg-glow-blue"></div>
+<div class="bg-glow bg-glow-purple"></div>
+<canvas id="particles"></canvas>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="dashboard.html" class="logo">
+      <span class="logo-text">HIVE</span>
+    </a>
+    <div class="nav-links">
+      <a href="dashboard.html" class="nav-link">Dashboard</a>
+      <a href="sessions.html" class="nav-link">Live Sessions</a>
+    </div>
+    <div class="nav-actions">
+      <div class="user-avatar" style="width:36px; height:36px; border-radius:50%; background:var(--grad); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff;">VG</div>
+    </div>
+  </div>
+</nav>
+
+<section class="pricing-section">
+  <div class="pricing-header">
+    <h1>Level up your learning.</h1>
+    <p>Unlock premium features, get priority matching, and earn more SEU with HIVE.</p>
+  </div>
+
+  <div class="billing-toggle">
+    <span class="toggle-label active" id="label-monthly" onclick="document.getElementById('billing-switch').click()">Monthly</span>
+    <label class="switch">
+      <input type="checkbox" id="billing-switch" onchange="togglePricing()">
+      <span class="slider"></span>
+    </label>
+    <span class="toggle-label" id="label-yearly" onclick="document.getElementById('billing-switch').click()">
+      Yearly <span class="discount-badge">Save up to 58%</span>
+    </span>
+  </div>
+
+  <div class="pricing-grid">
+    
+    <div class="pricing-card">
+      <div class="plan-name">Basic Starter</div>
+      <div class="plan-desc">Perfect for trying out the platform and basic skill exchanges.</div>
+      
+      <div class="plan-price">
+        <span class="price-currency">₹</span>0<span class="price-period">/mo</span>
+      </div>
+      <div class="billed-text">Free forever.</div>
+      
+      <ul class="feature-list">
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Exchange skills with standard matching
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Up to 3 Live Sessions per week
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Standard 720p Video Quality
+        </li>
+        <li class="disabled">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          Monthly SEU Bonus Drops
+        </li>
+        <li class="disabled">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          Record & Download Sessions
+        </li>
+      </ul>
+      
+      <button class="btn-ghost btn-full" disabled style="opacity: 0.5; cursor: not-allowed;">Current Plan</button>
+    </div>
+
+    <div class="pricing-card pro">
+      <div class="plan-name">HIVE Pro</div>
+      <div class="plan-desc">Supercharge your learning with advanced tools and priority access.</div>
+      
+      <div class="plan-price">
+        <span class="price-currency">₹</span><span id="pro-price">300</span><span class="price-period">/mo</span>
+      </div>
+      <div class="billed-text" id="pro-billed-text">Billed ₹300 monthly.</div>
+      
+      <ul class="feature-list">
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <strong>Unlimited</strong> Live Sessions
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Priority AI Skill Matching
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Crisp 1080p Video Quality
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span style="color: var(--blue); font-weight: 600;">+500 SEU</span> Monthly Bonus Drop
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Record & Download Sessions
+        </li>
+      </ul>
+      
+      <button class="btn-primary btn-full">Upgrade to Pro</button>
+    </div>
+
+    <div class="pricing-card">
+      <div class="plan-name">HIVE Elite</div>
+      <div class="plan-desc">For professional tutors who want to maximize their reach and earnings.</div>
+      
+      <div class="plan-price">
+        <span class="price-currency">₹</span><span id="elite-price">800</span><span class="price-period">/mo</span>
+      </div>
+      <div class="billed-text" id="elite-billed-text">Billed ₹800 monthly.</div>
+      
+      <ul class="feature-list">
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Everything in HIVE Pro
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Top-tier Tutor Directory Listing
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          4K Video & Screen Share
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span style="color: #f59e0b; font-weight: 600;">+2000 SEU</span> Monthly Bonus Drop
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Dedicated Profile Analytics
+        </li>
+      </ul>
+      
+      <button class="btn-ghost btn-full" style="color: #f59e0b; border-color: rgba(245, 158, 11, 0.3);">Get Elite</button>
+    </div>
+
+  </div>
+</section>
+
+<script type="module" src="/app.js"></script>
+<script>
+  function togglePricing() {
+    const isYearly = document.getElementById('billing-switch').checked;
+    
+    const labelMonthly = document.getElementById('label-monthly');
+    const labelYearly = document.getElementById('label-yearly');
+    
+    // Pro Tier Variables
+    const proPrice = document.getElementById('pro-price');
+    const proBilled = document.getElementById('pro-billed-text');
+    
+    // Elite Tier Variables
+    const elitePrice = document.getElementById('elite-price');
+    const eliteBilled = document.getElementById('elite-billed-text');
+
+    if (isYearly) {
+      // Switch to Yearly Mode
+      labelMonthly.classList.remove('active');
+      labelYearly.classList.add('active');
+      
+      // Pro: 1500/yr = 125/mo
+      proPrice.innerText = "125"; 
+      proBilled.innerHTML = "Billed <strong style='color:#fff;'>₹1500</strong> annually.";
+      
+      // Elite: 4800/yr = 400/mo (50% discount)
+      elitePrice.innerText = "400";
+      eliteBilled.innerHTML = "Billed <strong style='color:#fff;'>₹4800</strong> annually.";
+      
+    } else {
+      // Switch back to Monthly Mode
+      labelYearly.classList.remove('active');
+      labelMonthly.classList.add('active');
+      
+      // Pro
+      proPrice.innerText = "300";
+      proBilled.innerText = "Billed ₹300 monthly.";
+      
+      // Elite
+      elitePrice.innerText = "800";
+      eliteBilled.innerText = "Billed ₹800 monthly.";
+    }
+  }
+</script>
+</body>
+</html>
