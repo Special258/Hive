@@ -1,12 +1,13 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=Hive&fontSize=80&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=A%20Skill%20Exchange%20Platform%20Backend&descAlignY=55&descSize=18" alt="Hive banner"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=Hive&fontSize=80&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=A%20Community%20Skill%20Exchange%20Platform&descAlignY=55&descSize=18" alt="Hive banner"/>
 
-<img src="https://readme-typing-svg.demolab.com/?lines=Trade+skills%2C+not+money.;Built+with+Node.js+%2B+Express+%2B+MongoDB;Open+for+contributions+%F0%9F%A4%9D&font=Fira%20Code&center=true&width=550&height=45&color=F7B801&vCenter=true&size=22" alt="Typing SVG"/>
+<img src="https://readme-typing-svg.demolab.com/?lines=Trade+skills%2C+not+money.;A+community+where+knowledge+is+the+currency.;Full-stack+platform+%E2%80%94+React+%2B+Node.js+%2B+MongoDB;Learn+something+new.+Teach+something+you+know.&font=Fira%20Code&center=true&width=600&height=45&color=F7B801&vCenter=true&size=20" alt="Typing SVG"/>
 
 <br/>
 
 <p>
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React"/>
   <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js"/>
   <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express"/>
   <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB"/>
@@ -21,10 +22,10 @@
 </p>
 
 <p>
-  <img src="https://img.shields.io/github/contributors/Special258/Hive?style=for-the-badge&color=orange" alt="Contributors"/>
   <img src="https://img.shields.io/github/issues/Special258/Hive?style=for-the-badge&color=red" alt="Issues"/>
   <img src="https://img.shields.io/github/issues-pr/Special258/Hive?style=for-the-badge&color=purple" alt="Pull Requests"/>
   <img src="https://img.shields.io/github/stars/Special258/Hive?style=for-the-badge&color=gold" alt="Stars"/>
+  <img src="https://img.shields.io/badge/status-in%20development-orange?style=for-the-badge" alt="Status"/>
 </p>
 
 </div>
@@ -33,18 +34,19 @@
 
 ## 📖 About
 
-**Hive** is the backend API for a skill-exchange platform — a marketplace where the currency is *knowledge*. Users list skills they can teach and skills they want to learn, and Hive matches them so they can trade time and expertise instead of money.
+**Hive** is a full-stack community platform where people trade skills instead of money. Users list what they can teach and what they want to learn, get matched with others in the community, and connect to exchange knowledge — no cash changes hands, just expertise.
 
-This repo contains the server-side application: REST API, database models, authentication, and business logic that power the Hive experience.
+This repo contains the complete application: a **React** frontend for the user-facing experience and a **Node.js/Express** REST API backed by **MongoDB** for authentication, skill matching, and all core business logic.
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
 
 ## ✨ Features
 
 - 🔐 **User authentication** — secure signup/login flow
-- 🧑‍🤝‍🧑 **Skill matching** — connect users who can teach with users who want to learn
+- 🧑‍🤝‍🦱 **Skill matching** — connect users who can teach with users who want to learn
+- 💬 **Community-driven** — profiles, listings, and connections built around real people exchanging real skills
 - 💾 **MongoDB-backed persistence** — flexible, document-based data modeling for users and skills
-- 🔌 **RESTful API** — clean, predictable endpoints for the frontend/client to consume
+- 🔌 **RESTful API** — clean, predictable endpoints connecting the React frontend to the backend
 - ⚙️ **Environment-based config** — easy setup across dev/staging/production via `.env`
 
 > ✏️ Update this list with the specific features you've actually built (e.g. messaging, reviews/ratings, scheduling, search/filter) — this is the section recruiters read first.
@@ -53,13 +55,48 @@ This repo contains the server-side application: REST API, database models, authe
 
 ## 🛠️ Tech Stack
 
+**Frontend**
+
+<p>
+  <img src="https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB"/>
+  <img src="https://img.shields.io/badge/React_Router-CA4245?style=flat-square&logo=react-router&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=axios&logoColor=white"/>
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white"/>
+</p>
+
+**Backend**
+
+<p>
+  <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Express.js-000000?style=flat-square&logo=express&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Mongoose-880000?style=flat-square&logo=mongoose&logoColor=white"/>
+  <img src="https://img.shields.io/badge/JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white"/>
+  <img src="https://img.shields.io/badge/bcrypt-338833?style=flat-square"/>
+  <img src="https://img.shields.io/badge/dotenv-ECD53F?style=flat-square"/>
+  <img src="https://img.shields.io/badge/CORS-FF6C37?style=flat-square"/>
+</p>
+
+**Database & Tools**
+
+<p>
+  <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Postman-FF6C37?style=flat-square&logo=postman&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Nodemon-76D04B?style=flat-square&logo=nodemon&logoColor=white"/>
+  <img src="https://img.shields.io/badge/npm-CB3837?style=flat-square&logo=npm&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white"/>
+</p>
+
+> ✏️ This list reflects a typical MERN setup — trim or add badges to match the exact libraries in your `package.json` (e.g. if you're using `socket.io` for real-time chat, `multer` for file uploads, `cloudinary` for image hosting, etc.).
+
 | Layer | Technology |
 |---|---|
-| **Runtime** | Node.js |
-| **Framework** | Express.js |
-| **Database** | MongoDB (Atlas or local) |
-| **Language** | JavaScript |
-| **Package Manager** | npm |
+| **Frontend** | React, React Router, Axios |
+| **Backend Runtime** | Node.js |
+| **Backend Framework** | Express.js |
+| **Database** | MongoDB + Mongoose ODM |
+| **Auth** | JWT, bcrypt |
+| **API Style** | RESTful API |
+| **Tooling** | Postman, Nodemon, Git |
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
 
@@ -67,14 +104,17 @@ This repo contains the server-side application: REST API, database models, authe
 
 ```
 Hive/
-├── app.js              # Express app configuration & middleware
-├── server.js            # Entry point — starts the HTTP server
-├── package.json          # Dependencies & scripts
-├── .env.example          # Sample environment variables
+├── client/                # React frontend
+│   ├── src/
+│   └── package.json
+├── app.js                # Express app configuration & middleware
+├── server.js              # Entry point — starts the HTTP server
+├── package.json            # Backend dependencies & scripts
+├── .env.example            # Sample environment variables
 └── ...
 ```
 
-> ✏️ Expand this tree with your actual folders (e.g. `routes/`, `models/`, `controllers/`, `middleware/`) once you add them.
+> ✏️ Expand this tree with your actual folders (e.g. `routes/`, `models/`, `controllers/`, `client/src/components/`) as the project grows.
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
 
@@ -95,14 +135,20 @@ cd Hive
 cp .env.example .env
 # then update .env with your MongoDB URI and any secrets
 
-# 3. Install dependencies
+# 3. Install backend dependencies
 npm install
 
-# 4. Start the development server
+# 4. Install frontend dependencies (if the client lives in its own folder)
+cd client && npm install && cd ..
+
+# 5. Start the backend development server
 npm run dev
+
+# 6. Start the frontend (in a separate terminal)
+cd client && npm start
 ```
 
-The API will be available at `http://localhost:PORT` (as configured in your `.env`).
+The API will be available at `http://localhost:PORT` and the React app typically at `http://localhost:3000` (adjust based on your `.env`).
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
 
@@ -125,29 +171,15 @@ The API will be available at `http://localhost:PORT` (as configured in your `.en
 - [ ] Build out skill-matching algorithm
 - [ ] Add user ratings & reviews
 - [ ] Write API tests (Jest / Supertest)
-- [ ] Deploy to production (Render / Railway / AWS)
+- [ ] Deploy to production (Render / Railway / Vercel)
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
 
-## 🤝 Contributors
-
-Thanks to everyone who has contributed to Hive! 💛
+## 👥 Team
 
 <a href="https://github.com/Special258/Hive/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Special258/Hive" alt="Contributors"/>
+  <img src="https://contrib.rocks/image?repo=Special258/Hive" alt="Team"/>
 </a>
-
-<sub>This grid updates automatically as new contributors join — no manual editing needed.</sub>
-
-### Want to contribute?
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-New contributors are always welcome — check the [open issues](https://github.com/Special258/Hive/issues) for a good place to start.
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
 
@@ -158,13 +190,6 @@ New contributors are always welcome — check the [open issues](https://github.c
 <img src="https://github-readme-activity-graph.vercel.app/graph?username=Special258&repo=Hive&theme=react-dark&hide_border=true" alt="Activity Graph" width="100%"/>
 
 </div>
-
-<!--
-Optional: a live "snake" animation of your contribution graph.
-Requires a one-time GitHub Actions workflow (Platane/snk) added to your profile repo.
-Once set up, embed it here with:
-<img src="https://raw.githubusercontent.com/Special258/Special258/output/github-contribution-grid-snake.svg" alt="Snake animation" width="100%"/>
--->
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
 
@@ -178,8 +203,8 @@ This project is licensed under the MIT License — see the [LICENSE](./LICENSE) 
 
 **Jal Patel** ([@Special258](https://github.com/Special258))
 
-<a href="https://linkedin.com/in/YOUR_LINKEDIN"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a>
-<a href="mailto:YOUR_EMAIL"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white"/></a>
+<a href="https://www.linkedin.com/in/jalpatel-dataai"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a>
+<a href="mailto:jalpatel798@gmail.com"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white"/></a>
 
 ⭐ **If Hive interests you, consider giving this repo a star!** ⭐
 
