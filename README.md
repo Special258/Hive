@@ -36,8 +36,6 @@
 
 **Hive** is a full-stack community platform where people trade skills instead of money. Users list what they can teach and what they want to learn, get matched with others in the community, and connect to exchange knowledge — no cash changes hands, just expertise.
 
-This repo contains the complete application: a **React** frontend for the user-facing experience and a **Node.js/Express** REST API backed by **MongoDB** for authentication, skill matching, and all core business logic.
-
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
 
 ## ✨ Features
@@ -100,22 +98,6 @@ This repo contains the complete application: a **React** frontend for the user-f
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
 
-## 📂 Project Structure
-
-```
-Hive/
-├── client/                # React frontend
-│   ├── src/
-│   └── package.json
-├── app.js                # Express app configuration & middleware
-├── server.js              # Entry point — starts the HTTP server
-├── package.json            # Backend dependencies & scripts
-├── .env.example            # Sample environment variables
-└── ...
-```
-
-> ✏️ Expand this tree with your actual folders (e.g. `routes/`, `models/`, `controllers/`, `client/src/components/`) as the project grows.
-
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
 
 ## 🚀 Getting Started
@@ -123,34 +105,6 @@ Hive/
 ### Prerequisites
 - [Node.js](https://nodejs.org/) (v18+ recommended)
 - [MongoDB](https://www.mongodb.com/) — running locally or a free [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) cluster
-
-### Installation
-
-```bash
-# 1. Clone the repo
-git clone https://github.com/Special258/Hive.git
-cd Hive
-
-# 2. Copy environment variables
-cp .env.example .env
-# then update .env with your MongoDB URI and any secrets
-
-# 3. Install backend dependencies
-npm install
-
-# 4. Install frontend dependencies (if the client lives in its own folder)
-cd client && npm install && cd ..
-
-# 5. Start the backend development server
-npm run dev
-
-# 6. Start the frontend (in a separate terminal)
-cd client && npm start
-```
-
-The API will be available at `http://localhost:PORT` and the React app typically at `http://localhost:3000` (adjust based on your `.env`).
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
 
 ## 🔌 API Overview
 
@@ -164,14 +118,6 @@ The API will be available at `http://localhost:PORT` and the React app typically
 > ✏️ Replace this with your real routes once `routes/`/`controllers/` are built out — an accurate endpoint list is one of the highest-impact additions you can make.
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
-
-## 🗺️ Roadmap
-
-- [ ] Add JWT-based session handling
-- [ ] Build out skill-matching algorithm
-- [ ] Add user ratings & reviews
-- [ ] Write API tests (Jest / Supertest)
-- [ ] Deploy to production (Render / Railway / Vercel)
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
 
