@@ -47,7 +47,6 @@
 - 🔌 **RESTful API** — clean, predictable endpoints connecting the React frontend to the backend
 - ⚙️ **Environment-based config** — easy setup across dev/staging/production via `.env`
 
-> ✏️ Update this list with the specific features you've actually built (e.g. messaging, reviews/ratings, scheduling, search/filter) — this is the section recruiters read first.
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
 
@@ -83,20 +82,6 @@
   <img src="https://img.shields.io/badge/npm-CB3837?style=flat-square&logo=npm&logoColor=white"/>
   <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white"/>
 </p>
-
-> ✏️ This list reflects a typical MERN setup — trim or add badges to match the exact libraries in your `package.json` (e.g. if you're using `socket.io` for real-time chat, `multer` for file uploads, `cloudinary` for image hosting, etc.).
-
-| Layer | Technology |
-|---|---|
-| **Frontend** | React, React Router, Axios |
-| **Backend Runtime** | Node.js |
-| **Backend Framework** | Express.js |
-| **Database** | MongoDB + Mongoose ODM |
-| **Auth** | JWT, bcrypt |
-| **API Style** | RESTful API |
-| **Tooling** | Postman, Nodemon, Git |
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
 
