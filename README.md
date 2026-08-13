@@ -255,8 +255,6 @@ Contributions, issues, and feature requests are welcome! 🎉
 **Jal Patel** ([@Special258](https://github.com/Special258))
 **vandangujarati** ([@vandangujarati](https://github.com/vandangujarati))
 
-<a href="https://www.linkedin.com/in/jalpatel-dataai"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a>
-<a href="mailto:jalpatel798@gmail.com"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white"/></a>
 
 ⭐ **If Hive interests you, consider giving this repo a star — it really helps!** ⭐ 🐝🍯
 
