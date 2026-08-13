@@ -69,7 +69,7 @@ Hive removes the friction: **your skill *is* your currency.**
 <tr>
 <td align="center">
 <img src="https://cdn.simpleicons.org/html5/E34F26" width="40" height="40" alt="HTML5"/>&nbsp;
-<img src="https://cdn.simpleicons.org/css3/1572B6" width="40" height="40" alt="CSS3"/>&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="40" height="40" alt="CSS3"/>&nbsp;
 <img src="https://cdn.simpleicons.org/javascript/F7DF1E" width="40" height="40" alt="JavaScript"/>&nbsp;
 <img src="https://cdn.simpleicons.org/react/61DAFB" width="40" height="40" alt="React"/>&nbsp;
 <img src="https://cdn.simpleicons.org/axios/5A29E4" width="40" height="40" alt="Axios"/>
