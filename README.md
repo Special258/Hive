@@ -1,26 +1,8 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&customColorList=6,11,20&height=230&section=header&text=Hive&fontSize=85&fontColor=fff&animation=twinkling&fontAlignY=40&desc=Trade%20Skills.%20Not%20Money.&descAlignY=58&descSize=20" alt="Hive banner"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=Hive&fontSize=80&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=A%20Community%20Skill%20Exchange%20Platform&descAlignY=55&descSize=18" alt="Hive banner"/>
 
-<img src="https://readme-typing-svg.demolab.com/?lines=Trade+skills%2C+not+money.+🐝;A+community+where+knowledge+is+the+currency.+🍯;Full-stack+platform+%E2%80%94+React+%2B+Node.js+%2B+MongoDB;Learn+something+new.+Teach+something+you+know.+✨&font=Fira%20Code&center=true&width=650&height=45&color=F7B801&vCenter=true&size=20" alt="Typing SVG"/>
-
-<br/><br/>
-
-<p>
-  <img src="https://img.shields.io/github/last-commit/Special258/Hive?style=for-the-badge&color=success&label=Last%20Commit" alt="Last Commit"/>
-  <img src="https://img.shields.io/github/languages/top/Special258/Hive?style=for-the-badge&color=yellow&label=Top%20Language" alt="Top Language"/>
-  <img src="https://img.shields.io/github/repo-size/Special258/Hive?style=for-the-badge&color=informational&label=Repo%20Size" alt="Repo Size"/>
-  <img src="https://img.shields.io/github/license/Special258/Hive?style=for-the-badge&color=blue" alt="License"/>
-</p>
-
-<p>
-  <img src="https://img.shields.io/github/issues/Special258/Hive?style=for-the-badge&color=red" alt="Issues"/>
-  <img src="https://img.shields.io/github/issues-pr/Special258/Hive?style=for-the-badge&color=purple" alt="Pull Requests"/>
-  <img src="https://img.shields.io/github/stars/Special258/Hive?style=for-the-badge&color=gold" alt="Stars"/>
-  <img src="https://img.shields.io/badge/status-in%20development-orange?style=for-the-badge" alt="Status"/>
-</p>
-
-<img src="https://komarev.com/ghpvc/?username=Special258&repo=Hive&style=for-the-badge&color=blueviolet&label=Repo+Views" alt="Repo Views"/>
+<img src="https://readme-typing-svg.demolab.com/?lines=Trade+skills%2C+not+money.;A+community+where+knowledge+is+the+currency.;Full-stack+platform+-+React+%2B+Node.js+%2B+MongoDB;Learn+something+new.+Teach+something+you+know.&font=Fira%20Code&center=true&width=600&height=45&color=F7B801&vCenter=true&size=20" alt="Typing SVG"/>
 
 </div>
 
@@ -28,21 +10,16 @@
 
 ## 📚 Table of Contents
 
-- [🐝 About Hive](#-about-hive)
-- [🎯 The Problem We're Solving](#-the-problem-were-solving)
-- [✨ Features](#-features)
-- [🛠️ Tech Stack](#️-tech-stack)
-- [🧩 System Architecture](#-system-architecture)
-- [📁 Folder Structure](#-folder-structure)
-- [🚀 Getting Started](#-getting-started)
-- [🔑 Environment Variables](#-environment-variables)
-- [🔌 API Overview](#-api-overview)
-- [🗺️ Roadmap](#️-roadmap)
-- [🤝 Contributing](#-contributing)
-- [👥 Team](#-team)
-- [📈 Repo Activity](#-repo-activity)
-- [📄 License](#-license)
-- [💌 Support the Project](#-support-the-project)
+| | |
+|---|---|
+| 🐝 [About Hive](#-about-hive) | 🔑 [Environment Variables](#-environment-variables) |
+| 🎯 [The Problem We're Solving](#-the-problem-were-solving) | 🔌 [API Overview](#-api-overview) |
+| ✨ [Features](#-features) | 🗺️ [Roadmap](#️-roadmap) |
+| 🛠️ [Tech Stack](#️-tech-stack) | 🤝 [Contributing](#-contributing) |
+| 🧩 [System Architecture](#-system-architecture) | 👥 [Team](#-team) |
+| 📁 [Folder Structure](#-folder-structure) | 📈 [Repo Activity](#-repo-activity) |
+| 🚀 [Getting Started](#-getting-started) | 📄 [License](#-license) |
+| | 💌 [Support the Project](#-support-the-project) |
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
 
@@ -300,7 +277,6 @@ This project is licensed under the MIT License — see the [LICENSE](./LICENSE) 
 ### 👤 Maintainer
 
 **Jal Patel** ([@Special258](https://github.com/Special258))
-**vandangujarati** ([@vandangujarati](https://github.com/vandangujarati))
 
 <a href="https://www.linkedin.com/in/jalpatel-dataai"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a>
 <a href="mailto:jalpatel798@gmail.com"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white"/></a>
