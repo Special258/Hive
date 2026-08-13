@@ -182,10 +182,6 @@ npm run dev
 npm start
 ```
 
-By default:
-- 🖥️ Frontend runs on `http://localhost:3000`
-- ⚙️ Backend API runs on `http://localhost:5000` (or whatever `PORT` you set in `.env`)
-
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
 
 ## 🔑 Environment Variables
@@ -257,6 +253,7 @@ Contributions, issues, and feature requests are welcome! 🎉
 ### 👤 Maintainer
 
 **Jal Patel** ([@Special258](https://github.com/Special258))
+**vandangujarati** ([@vandangujarati](https://github.com/vandangujarati))
 
 <a href="https://www.linkedin.com/in/jalpatel-dataai"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a>
 <a href="mailto:jalpatel798@gmail.com"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white"/></a>
