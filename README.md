@@ -17,9 +17,8 @@
 | ✨ [Features](#-features) | 🗺️ [Roadmap](#️-roadmap) |
 | 🛠️ [Tech Stack](#️-tech-stack) | 🤝 [Contributing](#-contributing) |
 | 🧩 [System Architecture](#-system-architecture) | 👥 [Team](#-team) |
-| 📁 [Folder Structure](#-folder-structure) | 📈 [Repo Activity](#-repo-activity) |
-| 🚀 [Getting Started](#-getting-started) | 📄 [License](#-license) |
-| | 💌 [Support the Project](#-support-the-project) |
+| 📁 [Folder Structure](#-folder-structure) | 💌 [Support the Project](#-support-the-project) |
+| 🚀 [Getting Started](#-getting-started) | |
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
 
@@ -248,25 +247,6 @@ Contributions, issues, and feature requests are welcome! 🎉
 <a href="https://github.com/Special258/Hive/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Special258/Hive" alt="Team"/>
 </a>
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
-
-## 📈 Repo Activity
-
-<div align="center">
-
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=Special258&repo=Hive&theme=react-dark&hide_border=true" alt="Activity Graph" width="100%"/>
-
-<img src="https://github-readme-stats.vercel.app/api?username=Special258&show_icons=true&theme=react&hide_border=true" alt="GitHub Stats" width="49%"/>
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Special258&layout=compact&theme=react&hide_border=true" alt="Top Langs" width="49%"/>
-
-</div>
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
-
-## 📄 License
-
-This project is licensed under the MIT License — see the [LICENSE](./LICENSE) file for details.
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
 
