@@ -1,14 +1,220 @@
 {
-  "users": [{ "id": "vandan", "name": "Vandan Gujarati", "email": "vandan@hive.local", "role": "learner", "seu": 320, "rating": 4.8, "skills": ["JavaScript", "UI/UX", "English", "Python"] }],
+  "users": [
+    {
+      "id": "vandan",
+      "name": "Vandan Gujarati",
+      "email": "vandan@hive.local",
+      "password": "scrypt:118731bb540ffdcd9aeb0786f8bfde6a:fb28d1d40344272d97b66f9a0ba0254c5ac27ee54295d87e7a8986d42810efa0bc3f43741ab2886448758d827e3415cd314951c4ff3aabad80d0a0a9947ac00f",
+      "role": "admin",
+      "seu": 320,
+      "rating": 4.8,
+      "skills": [
+        {
+          "id": "legacy-0-javascript",
+          "name": "JavaScript",
+          "type": "teach",
+          "level": "intermediate"
+        },
+        {
+          "id": "legacy-1-ui-ux",
+          "name": "UI/UX",
+          "type": "teach",
+          "level": "intermediate"
+        },
+        {
+          "id": "legacy-2-english",
+          "name": "English",
+          "type": "teach",
+          "level": "intermediate"
+        },
+        {
+          "id": "legacy-3-python",
+          "name": "Python",
+          "type": "teach",
+          "level": "intermediate"
+        },
+        {
+          "id": "skill-1786303782059",
+          "name": "C++",
+          "type": "teach",
+          "level": "intermediate"
+        },
+        {
+          "id": "skill-1786303824621",
+          "name": "C#",
+          "type": "learn",
+          "level": "beginner"
+        },
+        {
+          "id": "skill-1786394120250",
+          "name": "JavaScript",
+          "type": "teach",
+          "level": "advanced"
+        },
+        {
+          "id": "skill-e9d72de7-73bc-4d48-8605-fce0c6c26610",
+          "name": "React",
+          "type": "learn",
+          "level": "beginner"
+        }
+      ]
+    },
+    {
+      "id": "user-34d1388a-bfd0-4510-8004-5a456fdec48e",
+      "name": "QA User",
+      "firstName": "QA",
+      "lastName": "User",
+      "email": "test_1786555126346@hive.local",
+      "password": "scrypt:4bd87c0734a13372ecadef0447c3f55e:5cd05dca64bf5f7c6bddb257ff47f65128551ec9ccc38da0a39234a243ca7f06ba3e5a0284b76c1905c48c2df901deafef9b2d999710f4956d0e6587877b7928",
+      "role": "learner",
+      "seu": 100,
+      "rating": 0,
+      "skills": []
+    },
+    {
+      "id": "user-36bb3efb-b2fd-44af-ac06-7b91af6e0f6c",
+      "name": "QA User",
+      "firstName": "QA",
+      "lastName": "User",
+      "email": "test_1786555159222@hive.local",
+      "password": "scrypt:cdd4fbe2400de565e187e5aec8ab8aa8:ef7668de33d4e98968ae316394c253e98e9db6e7819d55b8e66ef39c6ff64b21726aa88b3624a0117befc3bbfc0b6f127463809f54c054ae94bd0c998caccaca",
+      "role": "learner",
+      "seu": 100,
+      "rating": 0,
+      "skills": []
+    },
+    {
+      "id": "user-8eea1aeb-3b20-4c4c-aa52-6d7e653c99fc",
+      "name": "QA User",
+      "firstName": "QA",
+      "lastName": "User",
+      "email": "test_1786555279198@hive.local",
+      "password": "scrypt:a2e8deb860ed3fe0b651a2c42a2e3943:f06ded2c20947977ee98d516baf5cf66758adc13d64c93252e2a3dc63e49a8cdfcf6e6fc330547ac53e9e8f2b3b0a76c65fb8a35c53bc3a85205777e7bbc12ce",
+      "role": "learner",
+      "seu": 100,
+      "rating": 0,
+      "skills": [],
+      "status": "suspended"
+    },
+    {
+      "id": "user-b9bb2ab3-c6eb-485b-94b4-ba11a1c242a5",
+      "name": "T U",
+      "firstName": "T",
+      "lastName": "U",
+      "email": "testuser_1786556411857@test.local",
+      "password": "scrypt:d36d307e6b8781f7e0f6b3ccd226175e:e92dc59644579cd6928dc824377decd7cd0d914aae67be2ee83beb91a7333d4a00f19fb9f1361e4803859f087238d7c637948f91716f9e7046cde3b5bbaf48ed",
+      "role": "learner",
+      "seu": 100,
+      "rating": 0,
+      "skills": [],
+      "status": "active"
+    },
+    {
+      "id": "user-bd2e6276-6a30-4ce8-a59a-60434e4fb191",
+      "name": "QA User",
+      "firstName": "QA",
+      "lastName": "User",
+      "email": "test_1786556439844@hive.local",
+      "password": "scrypt:bcdb48d28dfe0a54f767e69da67c9445:0c7957357b1346f2542ba65e032d4c00ae486b1394948be209c622da085c83b722b80ce69dfc4c423b725e68958f9e755ec0addf06b185638ca57cd5ee21b059",
+      "role": "learner",
+      "seu": 100,
+      "rating": 0,
+      "skills": [],
+      "status": "suspended"
+    }
+  ],
   "sessions": [
-    { "id": "js-advanced", "title": "JavaScript Advanced", "tutor": "Jal Patel", "status": "live", "seu": 40, "time": "Live now", "topic": "JavaScript" },
-    { "id": "ml-basics", "title": "Machine Learning Basics", "tutor": "Smit Thakar", "status": "upcoming", "seu": 60, "time": "Starts in 10 min", "topic": "Machine Learning" },
-    { "id": "english-practice", "title": "Spoken English Practice", "tutor": "Vandan Gujarati", "status": "upcoming", "seu": 25, "time": "Tomorrow · 5:00 PM", "topic": "English" }
+    {
+      "id": "js-advanced",
+      "title": "JavaScript Advanced",
+      "tutor": "Jal Patel",
+      "status": "live",
+      "seu": 40,
+      "time": "Live now",
+      "topic": "JavaScript",
+      "attendees": [
+        "vandan"
+      ]
+    },
+    {
+      "id": "ml-basics",
+      "title": "Machine Learning Basics",
+      "tutor": "Smit Thakar",
+      "status": "upcoming",
+      "seu": 60,
+      "time": "Starts in 10 min",
+      "topic": "Machine Learning"
+    },
+    {
+      "id": "english-practice",
+      "title": "Spoken English Practice",
+      "tutor": "Vandan Gujarati",
+      "status": "upcoming",
+      "seu": 25,
+      "time": "Tomorrow · 5:00 PM",
+      "topic": "English"
+    }
   ],
   "matches": [
-    { "id": "aarav", "name": "Aarav Raj", "initials": "AR", "fit": 98, "request": "Wants to learn JavaScript", "offers": "UI/UX feedback" },
-    { "id": "siya", "name": "Siya Kapoor", "initials": "SK", "fit": 94, "request": "Wants to learn JavaScript", "offers": "UI/UX feedback" },
-    { "id": "rohan", "name": "Rohan Mehta", "initials": "RM", "fit": 91, "request": "Wants to learn JavaScript", "offers": "English practice" }
+    {
+      "id": "aarav",
+      "name": "Aarav Raj",
+      "initials": "AR",
+      "fit": 98,
+      "request": "Wants to learn JavaScript",
+      "offers": "UI/UX feedback"
+    },
+    {
+      "id": "siya",
+      "name": "Siya Kapoor",
+      "initials": "SK",
+      "fit": 94,
+      "request": "Wants to learn JavaScript",
+      "offers": "UI/UX feedback"
+    },
+    {
+      "id": "rohan",
+      "name": "Rohan Mehta",
+      "initials": "RM",
+      "fit": 91,
+      "request": "Wants to learn JavaScript",
+      "offers": "English practice"
+    }
   ],
-  "connections": []
+  "connections": [
+    {
+      "id": "connection-1786217798189",
+      "matchId": "aarav",
+      "userId": "vandan",
+      "status": "pending",
+      "createdAt": "2026-08-08T19:36:38.189Z"
+    }
+  ],
+  "notifications": [],
+  "authSessions": [
+    {
+      "tokenHash": "08cbc805ba802d9bcb155423d3aba5a2b36bb2e3ef5bdf673968ea90c6293e43",
+      "userId": "vandan",
+      "createdAt": "2026-08-12T17:40:11.985Z",
+      "expiresAt": "2026-08-13T17:40:11.985Z"
+    },
+    {
+      "tokenHash": "9b1fe9519c2fee1568a537765a5cd538deb44148383c53d87d0a7205e8076490",
+      "userId": "user-bd2e6276-6a30-4ce8-a59a-60434e4fb191",
+      "createdAt": "2026-08-12T17:40:40.913Z",
+      "expiresAt": "2026-08-13T17:40:40.913Z"
+    },
+    {
+      "tokenHash": "3d55ce93c26c38f41ece7f899d97f3ff0f15db21ebca132806e7d9bef051298f",
+      "userId": "user-bd2e6276-6a30-4ce8-a59a-60434e4fb191",
+      "createdAt": "2026-08-12T17:40:40.944Z",
+      "expiresAt": "2026-08-13T17:40:40.944Z"
+    },
+    {
+      "tokenHash": "12af6017df3a66b53aa87b32dd1f6c34043a605da203728e72ba83cbbf33bf6e",
+      "userId": "vandan",
+      "createdAt": "2026-08-12T17:40:41.572Z",
+      "expiresAt": "2026-08-13T17:40:41.572Z"
+    }
+  ]
 }

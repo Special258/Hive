@@ -29,3 +29,30 @@ backend/.env.*
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+# Local environment
+.env
+
+# Dependencies/build output
+node_modules/
+dist/
+
+# Local screenshots and scratch work
+screenshots/
+scratch/
+
+# Local database backups
+data/*.backup*.json
+
+# Local QA/test artifacts
+phase*_test.js
+preview*.json
+qa_regression.js
+run_e2e_tests.js
+take_*shot.js
+take_screenshots*.js
+test_hive*.js
+test_release.js
+test_socket_chat.js
+update_styles.js
+verify_analytics_flow.js
+patch.js

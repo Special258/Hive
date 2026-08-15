@@ -52,17 +52,337 @@
     .close-chat:hover { color: #fff; }
     
     .chat-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
-    .msg { max-width: 85%; padding: 12px 16px; border-radius: 12px; font-size: 13px; line-height: 1.5; }
-    .msg.received { background: rgba(255,255,255,0.05); align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid rgba(255,255,255,0.05); }
-    .msg.sent { background: rgba(74,158,255,0.15); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; border: 1px solid rgba(74,158,255,0.3); }
-    .msg-sender { font-size: 11px; color: var(--muted); margin-bottom: 4px; display: block; }
+    .msg {
+    max-width: 82%;
+    padding: 11px 14px;
+    border-radius: 14px;
+    font-size: 13px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.msg.received {
+    background: rgba(255,255,255,0.055);
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+    border: 1px solid rgba(255,255,255,0.07);
+}
+
+.msg.sent {
+    background: rgba(74,158,255,0.16);
+    color: #fff;
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
+    border: 1px solid rgba(74,158,255,0.32);
+}
+
+.msg-sender {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 5px;
+    display: block;
+    letter-spacing: 0.2px;
+}
+.msg-time {
+    display: block;
+    margin-top: 6px;
+    font-size: 9px;
+    color: rgba(255,255,255,0.45);
+    text-align: right;
+}
     
-    .chat-input-area { padding: 16px; border-top: 1px solid var(--border); display: flex; gap: 10px; background: rgba(5,8,15,0.5); }
-    .chat-input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; color: #fff; font-size: 13px; outline: none; transition: border 0.2s; }
-    .chat-input:focus { border-color: var(--blue); background: rgba(0,0,0,0.3); }
-    .send-btn { width: 40px; height: 40px; border-radius: 10px; background: var(--blue); border: none; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
-    .send-btn:hover { background: #3b82f6; transform: scale(1.05); }
+    .chat-input-area {
+    padding: 14px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    background: rgba(5,8,15,0.72);
+    backdrop-filter: blur(12px);
+    flex-shrink: 0;
+}
+    .chat-input {
+    flex: 1;
+    min-width: 0;
+    height: 40px;
+    box-sizing: border-box;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    padding: 0 13px;
+    color: #fff;
+    font-size: 13px;
+    outline: none;
+    transition: border 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.chat-input::placeholder {
+    color: rgba(255,255,255,0.42);
+}
+
+.chat-input:focus {
+    border-color: var(--blue);
+    background: rgba(0,0,0,0.3);
+    box-shadow: 0 0 0 3px rgba(74,158,255,0.08);
+}
+    .send-btn {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    border-radius: 11px;
+    background: var(--blue);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease,
+                background 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.send-btn:hover {
+    background: #3b82f6;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(74,158,255,0.25);
+}
+
+.send-btn:active {
+    transform: scale(0.94);
+}
+    /* ===== HIVE LIVE ROOM - FINAL LAYOUT ===== */
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+body {
+    min-height: 100dvh;
+}
+
+.room-layout {
+    width: 100%;
+    height: 100dvh;
+    min-height: 0;
+    display: flex;
+    overflow: hidden;
+}
+
+.main-stage {
+    height: 100%;
+    max-height: 100dvh;
+    box-sizing: border-box;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 18px 24px 16px;
+    overflow: hidden;
+}
+
+/* Header should never grow */
+.room-header {
+    flex: 0 0 auto;
+    margin-bottom: 14px;
+}
+
+/* Video area takes all remaining space */
+.video-grid {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    overflow: hidden;
+}
+
+/* Video cards must fit inside the available area */
+.video-item {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Keep video/avatar inside the card */
+.video-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-item .video-avatar-fallback {
+    width: 128px;
+    height: 128px;
+    flex: 0 0 128px;
+    object-fit: initial;
+}
+
+/* Bottom controls */
+.controls-bar {
+    flex: 0 0 auto;
+    align-self: center;
+    margin-top: 14px;
+    position: relative;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px 14px;
+}
+
+/* Better control buttons */
+.controls-bar .ctrl-btn {
+    width: 54px;
+    height: 54px;
+    min-width: 54px;
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    transition: transform 0.2s ease,
+                background 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.controls-bar .ctrl-btn:hover {
+    transform: translateY(-2px);
+}
+
+.controls-bar .ctrl-btn:active {
+    transform: scale(0.95);
+}
+
+/* Leave button */
+.controls-bar .end-call {
+    min-width: 110px;
+    height: 54px;
+    padding: 0 20px;
+    border-radius: 16px;
+    font-weight: 700;
+}
+
+/* Chat open state */
+.main-stage.chat-open {
+    padding-right: 24px;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 900px) {
+    .main-stage {
+        padding: 12px;
+    }
+
+    .video-grid {
+        gap: 10px;
+    }
+
+    .controls-bar .ctrl-btn {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        min-height: 48px;
+    }
+
+    .controls-bar .end-call {
+        min-width: 95px;
+        height: 48px;
+    }
+}
+
+@media (max-width: 650px) {
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .video-item {
+        min-height: 0;
+    }
+
+    .controls-bar {
+        gap: 8px;
+    }
+}
+/* ===== LIVE ROOM VIEWPORT FIX ===== */
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.room-layout {
+    width: 100%;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.main-stage {
+    width: 100%;
+    height: 100%;
+    max-height: 100dvh;
+    min-height: 0;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 14px 24px 90px !important;
+
+    overflow: hidden;
+}
+
+/* Header stays at the top */
+.room-header {
+    flex: 0 0 auto;
+    min-height: 0;
+}
+
+/* Video area uses the remaining space */
+.video-grid {
+    flex: 1 1 auto;
+    min-height: 0 !important;
+    height: auto !important;
+    overflow: hidden;
+}
+
+/* Video cards cannot force the page taller */
+.video-item {
+    min-height: 0 !important;
+}
+
+/* ===== FIXED CALL CONTROLS ===== */
+
+.controls-bar {
+    position: fixed !important;
+
+    left: 50% !important;
+    bottom: 16px !important;
+
+    transform: translateX(-50%) !important;
+
+    z-index: 9999 !important;
+
+    margin: 0 !important;
+
+    flex-shrink: 0 !important;
+}
   </style>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
 </head>
 <body>
 
@@ -78,8 +398,8 @@
     <header class="room-header">
       <div class="room-title">
         <div class="live-indicator"></div>
-        JavaScript Advanced Patterns
-        <span class="tag tag-soon" style="margin-left: 8px;">SEU: 40</span>
+        <span data-session-title>JavaScript Advanced Patterns</span>
+        <span class="tag tag-soon" style="margin-left: 8px;" data-session-seu>SEU: 40</span>
       </div>
       <div class="room-timer">45:12</div>
     </header>
@@ -87,30 +407,63 @@
     <div class="video-grid two-peers">
       <div class="video-item">
         <div class="video-avatar-fallback" style="background: linear-gradient(135deg, #10b981, #059669);">JP</div>
-        <div class="video-label">
-          Jal Patel (Tutor)
-        </div>
+        <div class="video-label tutor-video-label">
+    <svg class="mic-icon-off" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="1" y1="1" x2="23" y2="23"></line>
+        <path d="M9 9v3a3 3 0 0 0 5.12 2.12"></path>
+        <path d="M15 9V5a3 3 0 0 0-6 0v4"></path>
+        <path d="M17.5 14.5A6 6 0 0 1 6 12"></path>
+        <line x1="12" y1="18" x2="12" y2="22"></line>
+        <line x1="8" y1="22" x2="16" y2="22"></line>
+    </svg>
+    <span data-session-tutor>Jal Patel (Tutor)</span>
+</div>
       </div>
 
-      <div class="video-item">
-        <div class="video-avatar-fallback">VG</div>
-        <div class="video-label">
-          <svg class="mic-icon-off" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="1" y1="1" x2="23" y2="23"></line><path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path><path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
-          You (Muted)
-        </div>
-      </div>
-    </div>
+      <div class="video-item" id="local-video-container">
 
-    <div class="controls-bar">
-      <button class="ctrl-btn danger" title="Unmute">
+  <video
+    id="local-video"
+    autoplay
+    muted
+    playsinline
+    style="width:100%; height:100%; object-fit:cover; display:none;">
+  </video>
+
+  <div class="video-avatar-fallback" id="local-avatar">VG</div>
+
+  <div class="video-label" id="local-video-label">
+    <svg class="mic-icon-off" id="local-mic-icon"
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2">
+      <line x1="1" y1="1" x2="23" y2="23"></line>
+      <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+      <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+      <line x1="12" y1="19" x2="12" y2="23"></line>
+      <line x1="8" y1="23" x2="16" y2="23"></line>
+    </svg>
+
+    <span id="local-label-text">You (Muted)</span>
+  </div>
+
+</div>
+         
+      </div>
+
+   <div class="controls-bar">
+      <button class="ctrl-btn danger placeholder" id="mic-btn" title="Unmute">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="1" y1="1" x2="23" y2="23"></line><path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path><path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
       </button>
       
-      <button class="ctrl-btn danger" title="Turn on Camera">
+      <button class="ctrl-btn danger placeholder" id="camera-btn" title="Turn on Camera">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2m5.66 0H14a2 2 0 0 1 2 2v3.34l1 1L23 7v10"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
       </button>
 
-      <button class="ctrl-btn" title="Share Screen">
+      <button class="ctrl-btn placeholder" id="screen-btn" title="Share Screen">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
       </button>
 
@@ -119,7 +472,7 @@
       </button>
 
       <a href="dashboard.html" style="text-decoration: none;">
-        <button class="ctrl-btn end-call" title="Leave Session">
+        <button class="ctrl-btn end-call" id="leave-session-btn" title="Leave Session">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.42 19.42 0 0 1-3.33-2.67m-2.67-3.34a19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91"></path><line x1="23" y1="1" x2="1" y2="23"></line></svg>
           Leave
         </button>
@@ -138,9 +491,28 @@
     
     <div class="chat-messages">
       <div class="msg received">
-        <span class="msg-sender">System</span>
-        Recording has started. Keep conversations respectful.
-      </div>
+    <span class="msg-sender">System</span>
+    Recording has started. Keep conversations respectful.
+    <span class="msg-time">09:41 PM</span>
+</div>
+
+<div class="msg received">
+    <span class="msg-sender">Jal Patel</span>
+    Hey Vandan! Can you hear me alright?
+    <span class="msg-time">09:42 PM</span>
+</div>
+
+<div class="msg sent">
+    <span class="msg-sender">You</span>
+    Yes, loud and clear! I'll turn my video on in a second.
+    <span class="msg-time">09:42 PM</span>
+</div>
+
+<div class="msg received">
+    <span class="msg-sender">Jal Patel</span>
+    Perfect. Let me share my screen so we can look at the React code.
+    <span class="msg-time">09:43 PM</span>
+</div>
       <div class="msg received">
         <span class="msg-sender">Jal Patel</span>
         Hey Vandan! Can you hear me alright?
@@ -175,7 +547,382 @@
     stage.classList.toggle('chat-open');
     toggleBtn.classList.toggle('active-blue');
   }
+   /* =========================================
+     HIVE LIVE CHAT
+     ========================================= */
+
+  const chatMessages = document.querySelector('.chat-messages');
+  const chatInput = document.querySelector('.chat-input');
+  const sendBtn = document.querySelector('.send-btn');
+
+  function sendChatMessage() {
+    const message = chatInput.value.trim();
+
+    // Don't send empty messages
+    if (!message) return;
+
+    // Create message bubble
+    const messageElement = document.createElement('div');
+    messageElement.className = 'msg sent';
+
+   const now = new Date();
+
+const time = now.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit'
+});
+
+messageElement.innerHTML = `
+  <span class="msg-sender">You</span>
+  ${escapeChatMessage(message)}
+  <span class="msg-time">${time}</span>
+`;
+
+    // Add message
+    chatMessages.appendChild(messageElement);
+
+    // Emit message to Socket.IO
+    if (window.hiveSocket && window.hiveCurrentUser) {
+      window.hiveSocket.emit('chat-message', sessionId, message);
+    }
+
+    // Clear input
+    chatInput.value = '';
+
+    // Scroll to newest message
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Keep focus in input
+    chatInput.focus();
+  }
+
+  // Send button
+  sendBtn.addEventListener('click', sendChatMessage);
+
+  // Enter key
+  chatInput.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      sendChatMessage();
+    }
+  });
+
+  // Prevent HTML from being injected into the chat
+  function escapeChatMessage(message) {
+    const div = document.createElement('div');
+    div.textContent = message;
+    return div.innerHTML;
+  }
+
+  // Start at the newest message
+  chatMessages.scrollTop = chatMessages.scrollHeight;
 </script>
+<script>
+  // Load the selected session from the URL
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get('id') || params.get('session');
+  let currentUser = JSON.parse(localStorage.getItem('hiveUser') || 'null');
+  let currentSession = null;
+  window.hiveCurrentUser = currentUser;
+
+  async function loadRealSession() {
+    try {
+      if (!currentUser) {
+        window.location.href = '/dashboard.html';
+        return;
+      }
+
+      const token = localStorage.getItem('token');
+      const res = await fetch('/api/sessions', {
+          headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      
+      const session = data.sessions.find(s => s.id === sessionId);
+
+      if (session) {
+        currentSession = session;
+        // Update browser tab title
+        document.title = `${session.title} | HIVE`;
+
+        // Update any existing session title elements
+        document.querySelectorAll('[data-session-title]').forEach(el => {
+          el.textContent = session.title;
+        });
+
+        // Update tutor information
+        document.querySelectorAll('[data-session-tutor]').forEach(el => {
+          el.textContent = session.tutor + (session.tutorId === currentUser.id ? ' (You)' : '');
+        });
+
+        // Update SEU information
+        document.querySelectorAll('[data-session-seu]').forEach(el => {
+          el.textContent = `${session.seu} SEU`;
+        });
+      } else {
+        alert("Session not found.");
+        window.location.href = '/dashboard.html';
+      }
+    } catch (err) {
+      console.error("Failed to load session", err);
+    }
+  }
+
+  loadRealSession();
+</script>
+<script>
+  let localStream = null;
+  let screenStream = null;
+
+  const micBtn = document.getElementById('mic-btn');
+  const cameraBtn = document.getElementById('camera-btn');
+  const screenBtn = document.getElementById('screen-btn');
+
+  const localVideo = document.getElementById('local-video');
+  const localAvatar = document.getElementById('local-avatar');
+  const localLabelText = document.getElementById('local-label-text');
+  const localMicIcon = document.getElementById('local-mic-icon');
+
+  // Request camera + microphone
+  async function startMedia() {
+    try {
+      localStream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true
+      });
+
+      localVideo.srcObject = localStream;
+
+      // Start with camera OFF and microphone OFF
+      const videoTrack = localStream.getVideoTracks()[0];
+      const audioTrack = localStream.getAudioTracks()[0];
+
+      videoTrack.enabled = false;
+      audioTrack.enabled = false;
+
+      updateCameraUI();
+      updateMicUI();
+
+    } catch (error) {
+      console.error('Could not access camera/microphone:', error);
+      alert('Camera and microphone access was denied or unavailable.');
+    }
+  }
+
+  // Microphone
+  micBtn.addEventListener('click', () => {
+    if (!localStream) {
+      startMedia();
+      return;
+    }
+
+    const audioTrack = localStream.getAudioTracks()[0];
+
+    if (!audioTrack) return;
+
+    audioTrack.enabled = !audioTrack.enabled;
+
+    updateMicUI();
+  });
+
+  function updateMicUI() {
+    if (!localStream) return;
+
+    const audioTrack = localStream.getAudioTracks()[0];
+
+    if (!audioTrack) return;
+
+    if (audioTrack.enabled) {
+      micBtn.classList.remove('danger');
+      micBtn.classList.add('active-blue');
+      micBtn.title = 'Mute';
+
+      localMicIcon.style.display = 'none';
+      localLabelText.textContent = 'You';
+
+    } else {
+      micBtn.classList.add('danger');
+      micBtn.classList.remove('active-blue');
+      micBtn.title = 'Unmute';
+
+      localMicIcon.style.display = 'block';
+      localLabelText.textContent = 'You (Muted)';
+    }
+  }
+
+  // Camera
+  cameraBtn.addEventListener('click', () => {
+    if (!localStream) {
+      startMedia();
+      return;
+    }
+
+    const videoTrack = localStream.getVideoTracks()[0];
+
+    if (!videoTrack) return;
+
+    videoTrack.enabled = !videoTrack.enabled;
+
+    updateCameraUI();
+  });
+
+  function updateCameraUI() {
+    if (!localStream) return;
+
+    const videoTrack = localStream.getVideoTracks()[0];
+
+    if (!videoTrack) return;
+
+    if (videoTrack.enabled) {
+      localVideo.style.display = 'block';
+      localAvatar.style.display = 'none';
+
+      cameraBtn.classList.remove('danger');
+      cameraBtn.classList.add('active-blue');
+      cameraBtn.title = 'Turn off Camera';
+
+    } else {
+      localVideo.style.display = 'none';
+      localAvatar.style.display = 'flex';
+
+      cameraBtn.classList.add('danger');
+      cameraBtn.classList.remove('active-blue');
+      cameraBtn.title = 'Turn on Camera';
+    }
+  }
+
+  // Screen sharing
+  screenBtn.addEventListener('click', async () => {
+
+    // Stop screen sharing if already active
+    if (screenStream) {
+      stopScreenSharing();
+      return;
+    }
+
+    try {
+      screenStream = await navigator.mediaDevices.getDisplayMedia({
+        video: true
+      });
+
+      const screenTrack = screenStream.getVideoTracks()[0];
+
+      localVideo.srcObject = screenStream;
+      localVideo.style.display = 'block';
+      localAvatar.style.display = 'none';
+
+      screenBtn.classList.add('active-blue');
+      screenBtn.title = 'Stop Sharing';
+
+      screenTrack.addEventListener('ended', () => {
+        stopScreenSharing();
+      });
+
+    } catch (error) {
+      console.log('Screen sharing cancelled:', error);
+    }
+  });
+
+  function stopScreenSharing() {
+    if (screenStream) {
+      screenStream.getTracks().forEach(track => track.stop());
+      screenStream = null;
+    }
+
+    if (localStream) {
+      localVideo.srcObject = localStream;
+
+      const videoTrack = localStream.getVideoTracks()[0];
+
+      if (videoTrack && videoTrack.enabled) {
+        localVideo.style.display = 'block';
+        localAvatar.style.display = 'none';
+      } else {
+        localVideo.style.display = 'none';
+        localAvatar.style.display = 'flex';
+      }
+    }
+
+    screenBtn.classList.remove('active-blue');
+    screenBtn.title = 'Share Screen';
+  }
+
+  // Ask for permissions when the room loads
+  startMedia();
+</script>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  window.hiveSocket = io({ auth: { token: localStorage.getItem('token') || '' } });
+
+  const joinCurrentRoom = () => {
+    if (currentUser && window.hiveSocket.connected) {
+      window.hiveSocket.emit('join-room', sessionId);
+    }
+  };
+
+  window.hiveSocket.on('connect', joinCurrentRoom);
+  joinCurrentRoom();
+
+  window.hiveSocket.on('connect_error', (error) => {
+    console.error('Socket connection failed:', error.message);
+  });
+
+  window.hiveSocket.on('user-joined', (participant) => {
+    const sysMsg = document.createElement('div');
+    sysMsg.style.textAlign = 'center';
+    sysMsg.style.fontSize = '11px';
+    sysMsg.style.color = 'var(--muted)';
+    sysMsg.style.margin = '8px 0';
+    sysMsg.textContent = `${participant.name || 'A participant'} joined the room.`;
+    document.querySelector('.chat-messages').appendChild(sysMsg);
+    document.querySelector('.chat-messages').scrollTop = document.querySelector('.chat-messages').scrollHeight;
+  });
+
+  window.hiveSocket.on('user-left', (participant) => {
+    const sysMsg = document.createElement('div');
+    sysMsg.style.textAlign = 'center';
+    sysMsg.style.fontSize = '11px';
+    sysMsg.style.color = 'var(--muted)';
+    sysMsg.style.margin = '8px 0';
+    sysMsg.textContent = `${participant.name || 'A participant'} left the room.`;
+    document.querySelector('.chat-messages').appendChild(sysMsg);
+    document.querySelector('.chat-messages').scrollTop = document.querySelector('.chat-messages').scrollHeight;
+  });
+
+  window.hiveSocket.on('chat-message', (data) => {
+    const messageElement = document.createElement('div');
+    messageElement.className = 'msg received';
+    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    messageElement.innerHTML = `
+      <span class="msg-sender">${escapeChatMessage(data.senderName || 'Participant')}</span>
+      ${escapeChatMessage(data.text || '')}
+      <span class="msg-time">${time}</span>
+    `;
+    document.querySelector('.chat-messages').appendChild(messageElement);
+    document.querySelector('.chat-messages').scrollTop = document.querySelector('.chat-messages').scrollHeight;
+  });
+
+  document.getElementById('leave-session-btn')?.addEventListener('click', async (event) => {
+    event.preventDefault();
+    const token = localStorage.getItem('token') || '';
+    const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
+    try {
+        if (currentSession?.tutorId === currentUser?.id) {
+            await fetch(`/api/sessions/${encodeURIComponent(sessionId)}/complete`, { method: 'POST', headers });
+            window.location.href = 'review.html?session=' + encodeURIComponent(sessionId);
+        } else {
+            await fetch(`/api/sessions/${encodeURIComponent(sessionId)}/leave`, { method: 'POST', headers });
+            // For learner, if session is already completed, they can also review. 
+            // We'll just route them to review.html, and the API will reject/redirect if it's not completed.
+            window.location.href = 'review.html?session=' + encodeURIComponent(sessionId);
+        }
+    } finally {
+        window.hiveSocket?.emit('leave-room', sessionId);
+    }
+  });
+</script>
+
 <script type="module" src="/app.js"></script>
 </body>
 </html>

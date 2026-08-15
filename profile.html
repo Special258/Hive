@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HIVE - User Profile</title>
+<link rel="stylesheet" href="style.css"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <style>
+    .profile-header {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 32px;
+      background: rgba(13, 17, 32, 0.6);
+      border: 1px solid var(--border);
+      padding: 32px;
+      border-radius: 24px;
+    }
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 800;
+      color: #fff;
+      overflow: hidden;
+    }
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .profile-info {
+      flex: 1;
+    }
+    .profile-name {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .profile-meta {
+      display: flex;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .profile-meta span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .rating-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(245, 158, 11, 0.15);
+      color: #f59e0b;
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      padding: 20px;
+      border-radius: 16px;
+      text-align: center;
+    }
+    .stat-val {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--blue);
+      margin-bottom: 4px;
+    }
+    .stat-lbl {
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+    
+    /* Edit Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-card {
+      background: #0d1120;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+      width: 100%;
+      max-width: 500px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      padding: 12px;
+      border-radius: 8px;
+      color: #fff;
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    
+    
+    .avail-list { margin-top: 16px; display: grid; gap: 8px; }
+    .avail-item { display: flex; justify-content: space-between; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px; font-size: 14px; }
+    .avail-item button { background: none; border: none; color: #ef4444; cursor: pointer; }
+    .avail-add { display: flex; gap: 8px; margin-top: 12px; }
+    .avail-add select, .avail-add input { padding: 8px; border-radius: 6px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: #fff; }
+
+    /* Reviews */
+    .review-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+    }
+    .review-author-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+    .review-author-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    .review-comment {
+      color: #d1d5db;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .review-date {
+      font-size: 12px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow bg-glow-blue"></div>
+<div class="bg-glow bg-glow-purple"></div>
+
+<div class="app-layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo">
+        <span class="logo-text">HIVE</span>
+      </div>
+    </div>
+        <div class="sidebar-nav">
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">SWITCH ROLE</div>
+        <a href="admin.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span style="color: #4A9EFF;">Admin Portal</span>
+        </a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">MAIN</div>
+        <a href="dashboard.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12L12 3l9 9"/><path d="M5 10v10h4v-6h6v6h4V10"/></svg>
+          <span>Overview</span>
+        </a>
+        <a href="sessions.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><polyline points="10 9 15 12 10 15"/></svg>
+          <span>Live Sessions</span>
+        </a>
+        <a href="skills.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20a6 6 0 0112 0"/></svg>
+          <span>My Skills</span>
+        </a>
+        <a href="profile.html" class="nav-item active">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>My Profile</span>
+        </a>
+        <a href="connections.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          <span>Connections</span>
+          <span class="nav-badge" id="badge-nav-connections" style="display:none">0</span>
+        </a>
+        <a href="messages.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <span>Messages</span>
+          <span class="nav-badge" id="badge-nav-messages" style="display:none">0</span>
+        </a>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">INSIGHTS</div>
+        <a href="analytics.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>Analytics</span>
+        </a>
+        <a href="skill-matching.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span>Skill Matching</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+  <div class="user-card" onclick="window.location.href='profile.html'" style="cursor: pointer;">
+    <div class="user-avatar">VG</div>
+    <div class="user-info">
+      <div class="user-name">Vandan Gujarati</div>
+      <div class="user-role">Learner · Tutor</div>
+    </div>
+    <div class="seu-badge">320 SEU</div>
+  </div>
+
+  <button class="sign-out-btn" type="button" onclick="handleSignOut()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2">
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+      <polyline points="16 17 21 12 16 7"/>
+      <line x1="21" y1="12" x2="9" y2="12"/>
+    </svg>
+    <span>Sign Out</span>
+  </button>
+</div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content" id="profile-content">
+    <div style="text-align:center; padding:50px;">Loading profile...</div>
+  </main>
+</div>
+
+<!-- Edit Profile Modal -->
+<div class="modal-overlay" id="edit-modal">
+  <div class="modal-card">
+    <h2 style="margin-bottom: 24px;">Edit Profile</h2>
+    <div id="edit-error" style="color: #ef4444; margin-bottom:12px;"></div>
+    <div class="form-group">
+      <label>Avatar URL (https://)</label>
+      <input type="text" id="edit-avatar" placeholder="https://example.com/avatar.png">
+    </div>
+    <div class="form-group">
+      <label>Bio</label>
+      <textarea id="edit-bio" placeholder="Tell us about yourself..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>Location</label>
+      <input type="text" id="edit-location" placeholder="e.g. San Francisco, CA">
+    </div>
+    <div class="form-group">
+      <label>Timezone</label>
+      <input type="text" id="edit-timezone" placeholder="e.g. PST">
+    </div>
+    <div class="form-group">
+      <label>Availability Summary</label>
+      <input type="text" id="edit-availability" placeholder="e.g. Weekends only">
+    </div>
+    <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px;">
+      <button class="btn-primary" style="background: transparent; border: 1px solid var(--border);" onclick="closeEditModal()">Cancel</button>
+      <button class="btn-primary" onclick="saveProfile()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let isOwner = false;
+  let profileUserId = null;
+  
+  async function loadProfile() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetId = urlParams.get('id');
+    const token = localStorage.getItem('token');
+    
+    if (!token && !targetId) {
+        window.location.href = '/index.html';
+        return;
+    }
+
+    try {
+        let endpoint = '/api/users/me';
+        if (targetId) {
+            // we have an explicit ID to view.
+            endpoint = `/api/users/${targetId}`;
+        }
+        
+        const res = await fetch(endpoint, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        
+        if (res.status === 404) {
+            document.getElementById('profile-content').innerHTML = '<div style="padding:40px;">User not found.</div>';
+            return;
+        }
+        
+        const user = await res.json();
+        const currentUserStr = localStorage.getItem('hiveUser');
+        const currentUser = currentUserStr ? JSON.parse(currentUserStr) : null;
+        
+        isOwner = (!targetId || (currentUser && targetId === currentUser.id));
+        profileUserId = user.id;
+        
+        // Fetch reviews
+        const revRes = await fetch(`/api/users/${user.id}/reviews`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const revData = revRes.ok ? await revRes.json() : { reviews: [] };
+        
+        renderProfile(user, revData.reviews);
+        if(isOwner) loadAvailability();
+        
+    } catch(e) {
+        console.error(e);
+        document.getElementById('profile-content').innerHTML = '<div style="padding:40px;">Error loading profile.</div>';
+    }
+  }
+
+  
+  const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  
+  async function loadAvailability() {
+      if (!isOwner) {
+          document.getElementById('availability-section').innerHTML = '<p style="color:var(--muted)">Availability is managed by the user.</p>';
+          return;
+      }
+      const token = localStorage.getItem('token');
+      const res = await fetch('/api/users/me/availability', { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) {
+          const { availabilities } = await res.json();
+          renderAvailability(availabilities);
+      }
+  }
+
+  function renderAvailability(items) {
+      let html = '<div class="avail-list">';
+      if (items.length === 0) {
+          html += '<p style="color:var(--muted); font-size:14px;">No availability scheduled.</p>';
+      } else {
+          items.forEach(item => {
+              html += `
+                <div class="avail-item">
+                    <div>${DAYS[item.day_of_week]} ${item.start_time.slice(0,5)} - ${item.end_time.slice(0,5)} (${item.timezone})</div>
+                    <button onclick="deleteAvailability('${item.id}')">✕</button>
+                </div>
+              `;
+          });
+      }
+      html += '</div>';
+      
+      const tzGuess = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      html += `
+        <div class="avail-add">
+            <select id="new-avail-day">
+                ${DAYS.map((d,i) => `<option value="${i}">${d}</option>`).join('')}
+            </select>
+            <input type="time" id="new-avail-start" required>
+            <input type="time" id="new-avail-end" required>
+            <input type="text" id="new-avail-tz" value="${tzGuess}" placeholder="Timezone" style="width: 120px;">
+            <button class="btn-primary" onclick="addAvailability()">Add</button>
+        </div>
+      `;
+      document.getElementById('availability-section').innerHTML = html;
+  }
+
+  async function addAvailability() {
+      const day = parseInt(document.getElementById('new-avail-day').value);
+      const start = document.getElementById('new-avail-start').value;
+      const end = document.getElementById('new-avail-end').value;
+      const tz = document.getElementById('new-avail-tz').value;
+      
+      if (!start || !end) return alert('Start and end time required');
+      
+      const token = localStorage.getItem('token');
+      const res = await fetch('/api/users/me/availability', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({ day_of_week: day, start_time: start, end_time: end, timezone: tz })
+      });
+      
+      if (res.ok) {
+          loadAvailability();
+      } else {
+          const err = await res.json();
+          alert(err.error || 'Failed to add');
+      }
+  }
+
+  async function deleteAvailability(id) {
+      const token = localStorage.getItem('token');
+      await fetch(`/api/users/me/availability/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+      });
+      loadAvailability();
+  }
+
+  function renderProfile(user, reviews) {
+      const avatarHtml = user.avatar_url 
+          ? `<img src="${user.avatar_url}" alt="${user.first_name}" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span style="display:none;">${user.first_name[0]}</span>`
+          : user.first_name[0];
+          
+      let ratingHtml = '';
+      if (user.review_count > 0) {
+          const r = parseFloat(user.rating).toFixed(1);
+          ratingHtml = `<div class="rating-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> ${r} (${user.review_count} reviews)</div>`;
+      } else {
+          ratingHtml = `<div style="color:var(--muted); font-size: 14px;">No reviews yet</div>`;
+      }
+      
+      let reviewsHtml = '';
+      if (reviews.length === 0) {
+          reviewsHtml = `<p style="color:var(--muted);">No reviews yet.</p>`;
+      } else {
+          reviewsHtml = reviews.map(r => `
+              <div class="review-card">
+                  <div class="review-header">
+                      <div class="review-author">
+                          <div class="review-author-avatar">${r.reviewer_avatar ? '<img src="' + r.reviewer_avatar + '">' : r.reviewer_name[0]}</div>
+                          ${r.reviewer_name}
+                      </div>
+                      <div class="review-date">${new Date(r.created_at).toLocaleDateString()}</div>
+                  </div>
+                  <div style="color: #f59e0b; margin-bottom: 8px;">${'★'.repeat(r.overall_rating)}${'☆'.repeat(5-r.overall_rating)}</div>
+                  <div class="review-comment">${r.comment || ''}</div>
+              </div>
+          `).join('');
+      }
+      
+      const editBtn = isOwner ? `<button class="btn-primary" onclick="openEditModal()">Edit Profile</button>` : '';
+      
+      document.getElementById('profile-content').innerHTML = `
+        <div class="profile-header">
+            <div class="profile-avatar">${avatarHtml}</div>
+            <div class="profile-info">
+                <div class="profile-name">${user.first_name} ${user.last_name || ''}</div>
+                <div class="profile-meta">
+                    ${user.location ? '<span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> ' + user.location + '</span>' : ''}
+                    ${user.timezone ? '<span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> ' + user.timezone + '</span>' : ''}
+                    ${user.availability_summary ? '<span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> ' + user.availability_summary + '</span>' : ''}
+                </div>
+                <div style="margin-top: 12px;">${ratingHtml}</div>
+            </div>
+            <div class="profile-actions">
+                ${editBtn}
+            </div>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-val">${user.sessions_completed || 0}</div>
+                <div class="stat-lbl">Sessions Completed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">${user.teaching_hours || 0}</div>
+                <div class="stat-lbl">Teaching Hours</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">${user.learning_hours || 0}</div>
+                <div class="stat-lbl">Learning Hours</div>
+            </div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 32px;">
+            <div>
+                <h3 class="section-title">About</h3>
+                <p style="color: #d1d5db; line-height: 1.6; margin-bottom: 32px;">${user.bio || 'This user has not added a bio yet.'}</p>
+                
+                <h3 class="section-title">Recent Reviews</h3>
+                <div>${reviewsHtml}</div>
+            </div>
+            <div>
+                
+            <div>
+                <h3 class="section-title">Availability</h3>
+                <div id="availability-section">
+                    <p style="color:var(--muted)">Loading availability...</p>
+                </div>
+            </div>
+
+            </div>
+        </div>
+      `;
+      
+      if (isOwner) {
+          document.getElementById('edit-avatar').value = user.avatar_url || '';
+          document.getElementById('edit-bio').value = user.bio || '';
+          document.getElementById('edit-location').value = user.location || '';
+          document.getElementById('edit-timezone').value = user.timezone || '';
+          document.getElementById('edit-availability').value = user.availability_summary || '';
+      }
+  }
+  
+  function openEditModal() {
+      document.getElementById('edit-modal').classList.add('active');
+  }
+  
+  function closeEditModal() {
+      document.getElementById('edit-modal').classList.remove('active');
+      document.getElementById('edit-error').innerText = '';
+  }
+  
+  async function saveProfile() {
+      const payload = {
+          avatar_url: document.getElementById('edit-avatar').value.trim(),
+          bio: document.getElementById('edit-bio').value.trim(),
+          location: document.getElementById('edit-location').value.trim(),
+          timezone: document.getElementById('edit-timezone').value.trim(),
+          availability_summary: document.getElementById('edit-availability').value.trim()
+      };
+      
+      const token = localStorage.getItem('token');
+      try {
+          const res = await fetch('/api/users/me', {
+              method: 'PUT',
+              headers: { 
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`
+              },
+              body: JSON.stringify(payload)
+          });
+          
+          if (!res.ok) {
+              const data = await res.json();
+              document.getElementById('edit-error').innerText = data.error || 'Failed to update profile';
+              return;
+          }
+          
+          closeEditModal();
+          loadProfile(); // reload
+      } catch (e) {
+          document.getElementById('edit-error').innerText = 'Network error';
+      }
+  }
+
+  
+
+        // PHASE 3: Connection Status Injection
+        async function fetchConnectionStatus(profileId) {
+            try {
+                const token = localStorage.getItem('token');
+                const res = await fetch('/api/connections', { headers: { 'Authorization': `Bearer ${token}` } });
+                const data = await res.json();
+                if(!res.ok) return null;
+                return (data.connections || []).find(c => (c.userId === profileId || c.matchId === profileId) && c.status !== 'rejected');
+            } catch(e) { return null; }
+        }
+
+        async function updateProfileActions(profileId) {
+            const actionsDiv = document.querySelector('.profile-actions');
+            if(!actionsDiv) return;
+            const currentUser = JSON.parse(localStorage.getItem('hiveUser') || 'null');
+            if(currentUser && currentUser.id === profileId) return; // Self profile
+
+            const conn = await fetchConnectionStatus(profileId);
+            if (!conn) {
+                actionsDiv.innerHTML = `<button class="btn-primary" onclick="requestConnect('${profileId}')">Connect</button>`;
+            } else if (conn.status === 'connected') {
+                actionsDiv.innerHTML = `<button class="btn-primary" onclick="window.location.href='messages.html?conn=${conn.id}'" style="background: linear-gradient(135deg, #a855f7, #c026d3);">Message</button>`;
+            } else if (conn.status === 'pending') {
+                if (conn.isIncoming) {
+                    actionsDiv.innerHTML = `
+                        <button class="btn-primary" onclick="acceptConnect('${conn.id}')" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3);">Accept</button>
+                        <button class="btn-primary" onclick="rejectConnect('${conn.id}')" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2);">Decline</button>
+                    `;
+                } else {
+                    actionsDiv.innerHTML = `<button class="btn-primary" disabled style="background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid rgba(255,255,255,0.1);">Pending</button>`;
+                }
+            }
+        }
+        
+        async function requestConnect(targetId) {
+            try {
+                const res = await fetch('/api/connections', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+                    body: JSON.stringify({ targetUserId: targetId })
+                });
+                if(res.ok) updateProfileActions(targetId); else console.log("FETCH FAILED:", res.status, await res.text());
+            } catch(e) {}
+        }
+        async function acceptConnect(connId) {
+            try {
+                const res = await fetch(`/api/connections/${connId}/accept`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                if(res.ok) {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    updateProfileActions(urlParams.get('id'));
+                }
+            } catch(e) {}
+        }
+        async function rejectConnect(connId) {
+            try {
+                const res = await fetch(`/api/connections/${connId}/reject`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                if(res.ok) {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    updateProfileActions(urlParams.get('id'));
+                }
+            } catch(e) {}
+        }
+
+        // Hook into the end of loadProfile
+        const oldLoadProfile = loadProfile;
+        loadProfile = async function() {
+            await oldLoadProfile();
+            const urlParams = new URLSearchParams(window.location.search);
+            const profileId = urlParams.get("id");
+            if(profileId) {
+                setTimeout(() => updateProfileActions(profileId), 500);
+            }
+        };
+
+window.addEventListener('DOMContentLoaded', () => loadProfile());
+</script>
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HIVE — My Skills</title>
+
+  <link rel="stylesheet" href="style.css"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow bg-glow-blue"></div>
+<div class="bg-glow bg-glow-purple"></div>
+<canvas id="particles"></canvas>
+
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="sidebar-logo">
+      <div class="logo">
+        <span class="logo-text">HIVE</span>
+      </div>
+    </div>
+
+        <div class="sidebar-nav">
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">SWITCH ROLE</div>
+        <a href="admin.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span style="color: #4A9EFF;">Admin Portal</span>
+        </a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">MAIN</div>
+        <a href="dashboard.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12L12 3l9 9"/><path d="M5 10v10h4v-6h6v6h4V10"/></svg>
+          <span>Overview</span>
+        </a>
+        <a href="sessions.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><polyline points="10 9 15 12 10 15"/></svg>
+          <span>Live Sessions</span>
+        </a>
+        <a href="skills.html" class="nav-item active">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20a6 6 0 0112 0"/></svg>
+          <span>My Skills</span>
+        </a>
+        <a href="profile.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>My Profile</span>
+        </a>
+        <a href="connections.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          <span>Connections</span>
+          <span class="nav-badge" id="badge-nav-connections" style="display:none">0</span>
+        </a>
+        <a href="messages.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <span>Messages</span>
+          <span class="nav-badge" id="badge-nav-messages" style="display:none">0</span>
+        </a>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">INSIGHTS</div>
+        <a href="analytics.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>Analytics</span>
+        </a>
+        <a href="skill-matching.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span>Skill Matching</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+
+      <div class="user-card" onclick="window.location.href='profile.html'" style="cursor: pointer;">
+
+        <div class="user-avatar">HU</div>
+
+        <div class="user-info">
+          <div class="user-name">HIVE User</div>
+          <div class="user-role">Learner</div>
+        </div>
+
+        <div class="seu-badge">0 SEU</div>
+
+      </div>
+
+
+      <button
+        class="sign-out-btn"
+        type="button"
+        onclick="handleSignOut()">
+
+        <svg width="16" height="16"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2">
+
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+
+          <polyline points="16 17 21 12 16 7"/>
+
+          <line x1="21" y1="12" x2="9" y2="12"/>
+
+        </svg>
+
+        <span>Sign Out</span>
+
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <header class="page-header">
+
+      <div class="page-header-row">
+
+        <div>
+
+          <h1>My Skills</h1>
+
+          <p>
+            Manage the skills you teach and the skills you want to learn.
+          </p>
+
+        </div>
+
+        <button
+          class="btn-primary"
+          type="button"
+          onclick="openSkillModal()">
+
+          + Add Skill
+
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <!-- SKILL SUMMARY -->
+    <section class="skills-grid">
+
+      <div class="card card-teach">
+
+        <div class="card-header">
+          <div class="card-title">Skills I Teach</div>
+          <span class="tag tag-live" id="teach-count">0</span>
+        </div>
+
+        <div id="teach-skills" class="skills-list">
+          <div class="empty-skill">
+            You haven't added any teaching skills yet.
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="card card-learn">
+
+        <div class="card-header">
+          <div class="card-title">Skills I Want to Learn</div>
+          <span class="tag tag-soon" id="learn-count">0</span>
+        </div>
+
+        <div id="learn-skills" class="skills-list">
+          <div class="empty-skill">
+            You haven't added any learning skills yet.
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- HOW IT WORKS -->
+    <section class="card" style="margin-top:20px;">
+
+      <div class="card-header">
+
+        <div>
+          <div class="card-title">How HIVE uses your skills</div>
+
+          <p style="color:var(--muted);font-size:13px;margin-top:5px;">
+            Your skills help HIVE find better skill-exchange partners.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="skill-flow">
+
+        <div class="skill-flow-item">
+          <span>1</span>
+          <div>
+            <strong>Add your skills</strong>
+            <p>Tell HIVE what you can teach and what you want to learn.</p>
+          </div>
+        </div>
+
+        <div class="skill-flow-item">
+          <span>2</span>
+          <div>
+            <strong>HIVE compares skills</strong>
+            <p>We look for users whose learning goals match your teaching skills.</p>
+          </div>
+        </div>
+
+        <div class="skill-flow-item">
+          <span>3</span>
+          <div>
+            <strong>Find your exchange</strong>
+            <p>Connect with people who are a strong match for you.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- ADD SKILL MODAL -->
+
+<div id="skill-modal" class="skill-modal">
+
+  <div class="skill-modal-backdrop" onclick="closeSkillModal()"></div>
+
+  <div class="skill-modal-box">
+
+    <div class="skill-modal-header">
+
+      <div>
+        <h2>ADD SKILL</h2>
+        <p>Add something you can teach or learn</p>
+      </div>
+
+      <button
+        type="button"
+        class="skill-modal-close"
+        onclick="closeSkillModal()"
+        aria-label="Close">
+        ×
+      </button>
+
+    </div>
+
+
+    <form id="skill-form">
+
+      <label>Skill name</label>
+
+      <input
+        id="skill-name"
+        type="text"
+        placeholder="e.g. JavaScript"
+        required
+      />
+
+
+      <label>Skill type</label>
+
+      <div class="skill-type-options">
+
+        <label class="skill-type-option">
+
+          <input
+            type="radio"
+            name="skill-type"
+            value="teach"
+            checked
+          />
+
+          <span>
+            <strong>I can teach</strong>
+            <small>Share this skill with others</small>
+          </span>
+
+        </label>
+
+
+        <label class="skill-type-option">
+
+          <input
+            type="radio"
+            name="skill-type"
+            value="learn"
+          />
+
+          <span>
+            <strong>I want to learn</strong>
+            <small>Find someone who can teach me</small>
+          </span>
+
+        </label>
+
+      </div>
+
+
+      <label>Skill level</label>
+
+      <div class="select-wrapper">
+      <select id="skill-level">
+        <option value="beginner">Beginner</option>
+        <option value="intermediate">Intermediate</option>
+        <option value="advanced">Advanced</option>
+        <option value="expert">Expert</option>
+      </select>
+      <svg class="select-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </div>
+
+
+      <div class="skill-modal-actions">
+
+        <button
+          type="button"
+          class="text-button"
+          onclick="closeSkillModal()">
+
+          Cancel
+
+        </button>
+
+        <button
+          type="submit"
+          class="btn-primary">
+
+          Add Skill
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<script type="module" src="/app.js"></script>
+
+</body>
+</html>

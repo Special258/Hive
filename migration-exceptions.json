@@ -1,0 +1,45 @@
+[
+  {
+    "type": "Session",
+    "id": "js-advanced",
+    "original": {
+      "id": "js-advanced",
+      "title": "JavaScript Advanced",
+      "tutor": "Jal Patel",
+      "status": "live",
+      "seu": 40,
+      "time": "Live now",
+      "topic": "JavaScript",
+      "attendees": [
+        "vandan"
+      ]
+    },
+    "reason": "Tutor user not found. Tutor string: \"Jal Patel\", mapped ID: undefined"
+  },
+  {
+    "type": "Session",
+    "id": "ml-basics",
+    "original": {
+      "id": "ml-basics",
+      "title": "Machine Learning Basics",
+      "tutor": "Smit Thakar",
+      "status": "upcoming",
+      "seu": 60,
+      "time": "Starts in 10 min",
+      "topic": "Machine Learning"
+    },
+    "reason": "Tutor user not found. Tutor string: \"Smit Thakar\", mapped ID: undefined"
+  },
+  {
+    "type": "Connection",
+    "id": "connection-1786217798189",
+    "original": {
+      "id": "connection-1786217798189",
+      "matchId": "aarav",
+      "userId": "vandan",
+      "status": "pending",
+      "createdAt": "2026-08-08T19:36:38.189Z"
+    },
+    "reason": "User or target match user not found: userId=vandan, matchId=aarav"
+  }
+]

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HIVE - Connections</title>
+<link rel="stylesheet" href="style.css"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<style>
+    .page-header {
+        margin-bottom: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .page-header-title h1 {
+        font-size: 28px;
+        font-weight: 700;
+        margin: 0 0 4px 0;
+        color: #fff;
+    }
+    .page-header-title p {
+        color: var(--muted);
+        margin: 0;
+        font-size: 15px;
+    }
+    
+    .tabs-container {
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 24px;
+        display: flex;
+        gap: 32px;
+    }
+    .tab-btn {
+        background: transparent;
+        border: none;
+        color: var(--muted);
+        font-size: 15px;
+        font-weight: 500;
+        padding: 12px 0;
+        cursor: pointer;
+        position: relative;
+        transition: color 0.2s;
+    }
+    .tab-btn:hover, .tab-btn:focus-visible {
+        color: #fff;
+        outline: none;
+    }
+    .tab-btn.active {
+        color: #fff;
+        font-weight: 600;
+    }
+    .tab-btn.active::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: #a855f7;
+        border-radius: 2px 2px 0 0;
+    }
+
+    .connection-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 16px;
+    }
+
+    .connection-card {
+        background: rgba(13, 17, 32, 0.6);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        transition: all 0.2s;
+    }
+    .connection-card:hover {
+        border-color: rgba(255,255,255,0.15);
+        background: rgba(20, 25, 45, 0.6);
+    }
+
+    .conn-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .conn-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: var(--grad);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        font-weight: 700;
+        color: #fff;
+        flex-shrink: 0;
+    }
+
+    .conn-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .conn-name {
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 4px;
+    }
+    .conn-name:hover {
+        text-decoration: underline;
+    }
+
+    .conn-meta {
+        font-size: 13px;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .conn-meta span { display: flex; align-items: center; gap: 4px; }
+
+    .conn-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: auto;
+    }
+
+    .btn-action {
+        flex: 1;
+        padding: 10px 16px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: all 0.2s;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-message {
+        background: linear-gradient(135deg, #a855f7, #c026d3);
+        color: #fff;
+    }
+    .btn-message:hover { filter: brightness(1.1); }
+
+    .btn-profile {
+        background: rgba(255,255,255,0.05);
+        color: #fff;
+        border-color: var(--border);
+    }
+    .btn-profile:hover { background: rgba(255,255,255,0.1); }
+
+    .btn-accept {
+        background: rgba(16, 185, 129, 0.1);
+        color: #10b981;
+        border-color: rgba(16, 185, 129, 0.2);
+    }
+    .btn-accept:hover { background: rgba(16, 185, 129, 0.2); }
+
+    .btn-decline {
+        background: rgba(239, 68, 68, 0.1);
+        color: #ef4444;
+        border-color: rgba(239, 68, 68, 0.2);
+    }
+    .btn-decline:hover { background: rgba(239, 68, 68, 0.2); }
+
+    .btn-pending {
+        background: rgba(255,255,255,0.03);
+        color: var(--muted);
+        border-color: var(--border);
+        cursor: not-allowed;
+    }
+
+    .empty-state {
+        grid-column: 1 / -1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 80px 20px;
+        text-align: center;
+        background: rgba(13, 17, 32, 0.4);
+        border: 1px dashed var(--border);
+        border-radius: 16px;
+    }
+    .empty-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 24px;
+        color: var(--muted);
+    }
+    .empty-state h3 {
+        color: #fff;
+        font-size: 20px;
+        margin: 0 0 12px 0;
+    }
+    .empty-state p {
+        color: var(--muted);
+        font-size: 15px;
+        max-width: 400px;
+        margin: 0 0 24px 0;
+        line-height: 1.5;
+    }
+
+    .nav-badge {
+        background: #a855f7;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 10px;
+        margin-left: auto;
+    }
+
+    @media (max-width: 768px) {
+        .page-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+        .tabs-container { overflow-x: auto; white-space: nowrap; padding-bottom: 4px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow bg-glow-blue"></div>
+<div class="bg-glow bg-glow-purple"></div>
+
+<div class="app-layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo">
+        <span class="logo-text">HIVE</span>
+      </div>
+    </div>
+
+        <div class="sidebar-nav">
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">SWITCH ROLE</div>
+        <a href="admin.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span style="color: #4A9EFF;">Admin Portal</span>
+        </a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">MAIN</div>
+        <a href="dashboard.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12L12 3l9 9"/><path d="M5 10v10h4v-6h6v6h4V10"/></svg>
+          <span>Overview</span>
+        </a>
+        <a href="sessions.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><polyline points="10 9 15 12 10 15"/></svg>
+          <span>Live Sessions</span>
+        </a>
+        <a href="skills.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20a6 6 0 0112 0"/></svg>
+          <span>My Skills</span>
+        </a>
+        <a href="profile.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>My Profile</span>
+        </a>
+        <a href="connections.html" class="nav-item active">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          <span>Connections</span>
+          <span class="nav-badge" id="badge-nav-connections" style="display:none">0</span>
+        </a>
+        <a href="messages.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <span>Messages</span>
+          <span class="nav-badge" id="badge-nav-messages" style="display:none">0</span>
+        </a>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">INSIGHTS</div>
+        <a href="analytics.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>Analytics</span>
+        </a>
+        <a href="skill-matching.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span>Skill Matching</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="user-card" onclick="window.location.href='profile.html'" style="cursor: pointer;">
+        <div class="user-avatar" id="sidebar-avatar">?</div>
+        <div class="user-info">
+          <div class="user-name" id="sidebar-name">Loading...</div>
+          <div class="user-role">Learner · Tutor</div>
+        </div>
+      </div>
+
+      <button class="sign-out-btn" type="button" onclick="handleSignOut()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        <span>Sign Out</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <header class="page-header">
+      <div class="page-header-title">
+        <h1>Connections</h1>
+        <p>Manage your learning network and people you've connected with.</p>
+      </div>
+      <button class="btn-primary" onclick="loadConnections()" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--border);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 2v6h6"/></svg>
+        &nbsp; Refresh
+      </button>
+    </header>
+
+    <div class="tabs-container">
+        <button class="tab-btn active" data-tab="all">All Connections <span class="nav-badge" id="badge-all" style="display:none">0</span></button>
+        <button class="tab-btn" data-tab="pending">Pending Requests <span class="nav-badge" id="badge-pending" style="display:none">0</span></button>
+        <button class="tab-btn" data-tab="outgoing">Your Requests <span class="nav-badge" id="badge-outgoing" style="display:none">0</span></button>
+    </div>
+    
+    <div id="conn-container" class="connection-list">
+        <div style="padding: 20px; color: var(--muted);">Loading connections...</div>
+    </div>
+  </main>
+</div>
+
+<script type="module" src="/app.js"></script>
+<script>
+    let allConnections = [];
+    let currentTab = 'all';
+
+    async function loadConnections() {
+        try {
+            const token = localStorage.getItem('token');
+            const res = await fetch('/api/connections', { headers: { 'Authorization': `Bearer ${token}` } });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error);
+            
+            allConnections = (data.connections || []).filter(c => c.status !== 'rejected');
+            updateBadges();
+            renderConnections();
+        } catch(e) {
+            console.error(e);
+            document.getElementById('conn-container').innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+                    <h3>Error loading connections</h3>
+                    <p>We encountered an issue loading your connections.</p>
+                    <button class="btn-primary" onclick="loadConnections()">Try Again</button>
+                </div>
+            `;
+        }
+    }
+    
+    function updateBadges() {
+        const all = allConnections.filter(c => c.status === 'connected').length;
+        const pending = allConnections.filter(c => c.status === 'pending' && c.isIncoming).length;
+        const outgoing = allConnections.filter(c => c.status === 'pending' && !c.isIncoming).length;
+        
+        document.getElementById('badge-all').innerText = all;
+        document.getElementById('badge-all').style.display = all > 0 ? 'inline-flex' : 'none';
+        
+        document.getElementById('badge-pending').innerText = pending;
+        document.getElementById('badge-pending').style.display = pending > 0 ? 'inline-flex' : 'none';
+        
+        document.getElementById('badge-outgoing').innerText = outgoing;
+        document.getElementById('badge-outgoing').style.display = outgoing > 0 ? 'inline-flex' : 'none';
+    }
+
+    function renderConnections() {
+        const container = document.getElementById('conn-container');
+        let filtered = [];
+        
+        if (currentTab === 'all') {
+            filtered = allConnections.filter(c => c.status === 'connected');
+        } else if (currentTab === 'pending') {
+            filtered = allConnections.filter(c => c.status === 'pending' && c.isIncoming);
+        } else if (currentTab === 'outgoing') {
+            filtered = allConnections.filter(c => c.status === 'pending' && !c.isIncoming);
+        }
+        
+        if (!filtered.length) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                    </div>
+                    <h3>No connections yet</h3>
+                    <p>Build your learning network by connecting with people from your matches.</p>
+                    <button class="btn-primary" onclick="window.location.href='skill-matching.html'">Explore Matches <span>→</span></button>
+                </div>
+            `;
+            return;
+        }
+        
+        container.innerHTML = filtered.map(conn => {
+            const u = conn.otherUser;
+            const initial = u.name ? u.name.charAt(0).toUpperCase() : '?';
+            
+            let actionHtml = '';
+            if (conn.status === 'connected') {
+                actionHtml = `
+                    <a href="messages.html?conn=${conn.id}" class="btn-action btn-message">Message</a>
+                    <a href="profile.html?id=${u.id}" class="btn-action btn-profile">Profile</a>
+                `;
+            } else if (conn.status === 'pending' && conn.isIncoming) {
+                actionHtml = `
+                    <button class="btn-action btn-accept" onclick="handleAccept('${conn.id}')">Accept</button>
+                    <button class="btn-action btn-decline" onclick="handleReject('${conn.id}')">Decline</button>
+                `;
+            } else if (conn.status === 'pending' && !conn.isIncoming) {
+                actionHtml = `
+                    <button class="btn-action btn-pending" disabled>Pending</button>
+                    <a href="profile.html?id=${u.id}" class="btn-action btn-profile">Profile</a>
+                `;
+            }
+            
+            const ratingStr = u.rating ? `★ ${Number(u.rating).toFixed(1)} (${u.review_count || 0})` : 'New member';
+            
+            return `
+            <div class="connection-card">
+                <div class="conn-header">
+                    <div class="conn-avatar">${initial}</div>
+                    <div class="conn-info">
+                        <a href="profile.html?id=${u.id}" class="conn-name">${u.name}</a>
+                        <div class="conn-meta">
+                            <span>${ratingStr}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="conn-actions">
+                    ${actionHtml}
+                </div>
+            </div>
+            `;
+        }).join('');
+    }
+    
+    window.handleAccept = async function(id) {
+        try {
+            const res = await fetch(\`/api/connections/\${id}/accept\`, {
+                method: 'POST',
+                headers: { 'Authorization': \`Bearer \${localStorage.getItem('token')}\` }
+            });
+            if(res.ok) await loadConnections();
+        } catch(e) { console.error(e); }
+    };
+
+    window.handleReject = async function(id) {
+        try {
+            const res = await fetch(\`/api/connections/\${id}/reject\`, {
+                method: 'POST',
+                headers: { 'Authorization': \`Bearer \${localStorage.getItem('token')}\` }
+            });
+            if(res.ok) await loadConnections();
+        } catch(e) { console.error(e); }
+    };
+    
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            e.currentTarget.classList.add('active');
+            currentTab = e.currentTarget.dataset.tab;
+            renderConnections();
+        });
+    });
+    
+    window.addEventListener('DOMContentLoaded', () => {
+        const u = JSON.parse(localStorage.getItem('hiveUser') || '{}');
+        if(u.name) {
+            document.getElementById('sidebar-name').innerText = u.name;
+            document.getElementById('sidebar-avatar').innerText = u.name.charAt(0).toUpperCase();
+        }
+        loadConnections();
+    });
+</script>
+</body>
+</html>

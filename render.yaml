@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: hive-skill-exchange
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    autoDeploy: true

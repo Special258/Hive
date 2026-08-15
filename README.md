@@ -1,263 +1,53 @@
-<div align="center">
+# HIVE 2.0 Deployment Guide
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=Hive&fontSize=80&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=A%20Community%20Skill%20Exchange%20Platform&descAlignY=55&descSize=18" alt="Hive banner"/>
+HIVE is a real-time peer-to-peer skill-sharing platform built with Vanilla JS, Node.js, Express, and Socket.IO.
 
-<img src="https://readme-typing-svg.demolab.com/?lines=Trade+skills%2C+not+money.;A+community+where+knowledge+is+the+currency.;Full-stack+platform+-+React+%2B+Node.js+%2B+MongoDB;Learn+something+new.+Teach+something+you+know.&font=Fira%20Code&center=true&width=600&height=45&color=F7B801&vCenter=true&size=20" alt="Typing SVG"/>
+## Prerequisites
+- **Node.js**: v18 or higher (tested on v25)
+- **NPM**: v9 or higher
 
-</div>
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
-
-## 📚 Table of Contents
-
-| | |
-|---|---|
-| 🐝 [About Hive](#-about-hive) | 🔑 [Environment Variables](#-environment-variables) |
-| 🎯 [The Problem We're Solving](#-the-problem-were-solving) | 🔌 [API Overview](#-api-overview) |
-| ✨ [Features](#-features) | 🗺️ [Roadmap](#️-roadmap) |
-| 🛠️ [Tech Stack](#️-tech-stack) | 🤝 [Contributing](#-contributing) |
-| 🧩 [System Architecture](#-system-architecture) | 👥 [Team](#-team) |
-| 📁 [Folder Structure](#-folder-structure) | 💌 [Support the Project](#-support-the-project) |
-| 🚀 [Getting Started](#-getting-started) | |
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
-
-## 🐝 About Hive
-
-**Hive** is a full-stack community platform built on a simple idea: **everyone knows something worth teaching, and everyone wants to learn something new.**
-
-Instead of paying for lessons, courses, or consultations, Hive lets people **trade skills directly with each other**. List what you can teach, list what you want to learn, get matched with people in the community whose skills complement yours, and connect — no cash changes hands, just real expertise flowing between real people.
-
-Think of it as a barter economy for knowledge — powered by React, Node.js, and MongoDB. 🍯
-
-## 🎯 The Problem We're Solving
-
-- 💸 Learning a new skill is often gated behind a paywall.
-- 🌍 Skilled people everywhere are willing to teach — they just have no easy way to find learners (or vice versa).
-- 🤝 Communities thrive when knowledge is shared, not hoarded.
-
-Hive removes the friction: **your skill *is* your currency.**
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
-
-## ✨ Features
-
-- 🔐 **Secure Authentication** — JWT-based signup/login flow with hashed passwords (bcrypt)
-- 🧑‍🤝‍🦱 **Smart Skill Matching** — connects users who can teach with users who want to learn the same skill
-- 🗂️ **Skill Listings** — create, browse, and manage "I can teach" / "I want to learn" listings
-- 💬 **Community Profiles** — public profiles built around real people and real expertise
-- 💾 **MongoDB-Backed Persistence** — flexible, document-based data modeling for users and skills
-- 🔌 **RESTful API** — clean, predictable endpoints connecting the React frontend to the Express backend
-- ⚙️ **Environment-Based Config** — seamless setup across dev/staging/production via `.env`
-- 📱 **Responsive UI** — built with React so it feels good on desktop and mobile alike
-- 🚦 **Protected Routes** — token-guarded pages and API endpoints out of the box
-
-> 🚧 Actively evolving — see the [Roadmap](#️-roadmap) for what's coming next.
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
-
-## 🛠️ Tech Stack
-
-<div align="center">
-
-<table>
-<tr>
-<th>Frontend</th>
-<th>Backend & Frameworks</th>
-<th>Database & Tools</th>
-</tr>
-<tr>
-<td align="center">
-<img src="https://cdn.simpleicons.org/html5/E34F26" width="40" height="40" alt="HTML5"/>&nbsp;
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="40" height="40" alt="CSS3"/>&nbsp;
-<img src="https://cdn.simpleicons.org/javascript/F7DF1E" width="40" height="40" alt="JavaScript"/>&nbsp;
-<img src="https://cdn.simpleicons.org/react/61DAFB" width="40" height="40" alt="React"/>&nbsp;
-<img src="https://cdn.simpleicons.org/axios/5A29E4" width="40" height="40" alt="Axios"/>
-</td>
-<td align="center">
-<img src="https://cdn.simpleicons.org/nodedotjs/339933" width="40" height="40" alt="Node.js"/>&nbsp;
-<img src="https://cdn.simpleicons.org/express/808080" width="40" height="40" alt="Express.js"/>&nbsp;
-<img src="https://cdn.simpleicons.org/python/3776AB" width="40" height="40" alt="Python"/>&nbsp;
-<img src="https://cdn.simpleicons.org/django/092E20" width="40" height="40" alt="Django"/>&nbsp;
-<img src="https://cdn.simpleicons.org/jsonwebtokens/808080" width="40" height="40" alt="JWT"/>&nbsp;
-<img src="https://cdn.simpleicons.org/dotenv/ECD53F" width="40" height="40" alt="dotenv"/>
-</td>
-<td align="center">
-<img src="https://cdn.simpleicons.org/mongodb/47A248" width="40" height="40" alt="MongoDB"/>&nbsp;
-<img src="https://cdn.simpleicons.org/postman/FF6C37" width="40" height="40" alt="Postman"/>&nbsp;
-<img src="https://cdn.simpleicons.org/nodemon/76D04B" width="40" height="40" alt="Nodemon"/>&nbsp;
-<img src="https://cdn.simpleicons.org/npm/CB3837" width="40" height="40" alt="npm"/>&nbsp;
-<img src="https://cdn.simpleicons.org/git/F05032" width="40" height="40" alt="Git"/>
-</td>
-</tr>
-</table>
-
-</div>
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
-
-## 🧩 System Architecture
-
-```
-┌────────────────────┐        REST API (JSON)        ┌────────────────────┐
-│                     │ ─────────────────────────────▶│                     │
-│   React Frontend    │        (Axios + JWT)           │   Express Backend   │
-│   (Client / UI)      │◀───────────────────────────── │   (Node.js API)     │
-│                     │                                 │                     │
-└────────────────────┘                                 └──────────┬──────────┘
-                                                                    │
-                                                             Mongoose ODM
-                                                                    │
-                                                                    ▼
-                                                          ┌────────────────────┐
-                                                          │      MongoDB        │
-                                                          │  (Users & Skills)    │
-                                                          └────────────────────┘
-```
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
-
-## 📁 Folder Structure
-
-```
-Hive/
-├── client/                # React frontend
-│   ├── public/
-│   └── src/
-│       ├── components/    # Reusable UI components
-│       ├── pages/         # Route-level pages
-│       ├── context/       # Auth / global state
-│       ├── services/      # Axios API calls
-│       └── App.js
-│
-├── server/                 # Node.js + Express backend
-│   ├── config/             # DB connection, env setup
-│   ├── controllers/        # Route logic
-│   ├── models/             # Mongoose schemas
-│   ├── routes/             # API route definitions
-│   ├── middleware/         # Auth guards, error handling
-│   └── server.js
-│
-├── .env.example
-├── package.json
-└── README.md
-```
-
-> ✏️ Update this to mirror your actual repo layout as it evolves.
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
-
-## 🚀 Getting Started
-
-### ✅ Prerequisites
-
-- [Node.js](https://nodejs.org/) (v18+ recommended)
-- [MongoDB](https://www.mongodb.com/) — running locally or a free [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) cluster
-- [npm](https://www.npmjs.com/) or yarn
-- [Git](https://git-scm.com/)
-
-### 📥 Installation
-
+## Installation
+From the root of the project, run:
 ```bash
-# 1. Clone the repo
-git clone https://github.com/Special258/Hive.git
-cd Hive
-
-# 2. Install backend dependencies
-cd server
-npm install
-
-# 3. Install frontend dependencies
-cd ../client
 npm install
 ```
 
-### ▶️ Running the App
+## Runtime Dependencies
+- `express`: Core web server
+- `socket.io`: Real-time WebSockets for the Live Room
+- `cors`: Cross-Origin Resource Sharing
 
+*(Note: `puppeteer` is a development-only dependency used exclusively for QA scripts and E2E testing. It can be safely omitted in production.)*
+
+## Configuration & Environment Variables
+HIVE 2.0 currently runs natively without external environment variables.
+- **Port:** The server runs on port `3001` by default. 
+- **Data Location:** The application relies on a local JSON datastore located at `data/hive-data.json`. Ensure this file has read/write permissions for the Node process.
+
+## Starting the Server
+To start the production server:
 ```bash
-# Start the backend (from /server)
-npm run dev
+node server.js
+```
+The application will be available at `http://localhost:3001` (or your reverse-proxy domain).
 
-# Start the frontend (from /client, in a new terminal)
-npm start
+To run in the background (using a process manager like PM2):
+```bash
+pm2 start server.js --name "hive-backend"
 ```
 
-<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
+## Admin Setup
+1. The first administrator must be manually configured in `data/hive-data.json` by setting `"role": "admin"`.
+2. Login with the configured email and password.
+3. The Admin portal will become accessible at `/admin.html`.
 
-## 🔑 Environment Variables
+## Security & Architecture Limitations (IMPORTANT)
+**Local / Demo Suitability Only**
+- **Authentication**: Authentication currently uses a rudimentary custom implementation relying on `x-user-email` headers and local `localStorage` tokens. It does not use signed JWTs or robust session stores.
+- **Authorization**: API access controls rely heavily on client-side state and email matching. A sophisticated actor can forge headers. 
+- **Database**: The datastore is a synchronous read/write JSON file (`data/hive-data.json`). This is NOT scalable for concurrent users and will experience race conditions under heavy load.
+- **Production Recommendation**: Do not deploy this to the open internet with real user PII until the authentication system is migrated to Passport/JWT and the datastore is migrated to a real database (e.g., PostgreSQL or MongoDB).
 
-Create a `.env` file inside `/server` with the following:
-
-| Variable | Description |
-|---|---|
-| `PORT` | Port the Express server runs on |
-| `MONGO_URI` | MongoDB connection string |
-| `JWT_SECRET` | Secret key used to sign JWTs |
-| `NODE_ENV` | `development` \| `production` |
-
-> 🔒 Never commit your real `.env` file — use `.env.example` as a template.
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
-
-## 🔌 API Overview
-
-| Method | Endpoint | Description |
-|---|---|---|
-| `POST` | `/api/auth/register` | Register a new user |
-| `POST` | `/api/auth/login` | Log in an existing user |
-| `GET` | `/api/skills` | Fetch available skills |
-| `POST` | `/api/skills` | Add a new skill listing |
-| `GET` | `/api/users/:id` | Get a user's public profile |
-| `PUT` | `/api/users/:id` | Update a user's profile |
-
-> ✏️ Replace/expand this with your real routes once `routes/` and `controllers/` are fully built out — an accurate endpoint list is one of the highest-impact additions you can make.
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
-
-## 🗺️ Roadmap
-
-- [x] User authentication (JWT)
-- [x] Skill listing CRUD
-- [ ] In-app messaging between matched users
-- [ ] Skill matching algorithm v2 (weighted by availability & interest)
-- [ ] Ratings & reviews after a skill exchange
-- [ ] Notifications (email / in-app)
-- [ ] Public deployment (Render / Vercel / Netlify)
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome! 🎉
-
-1. Fork the repo
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
-
-## 👥 Team
-
-<a href="https://github.com/Special258/Hive/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Special258/Hive" alt="Team"/>
-</a>
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3" width="100%"/>
-
-## 💌 Support the Project
-
-<div align="center">
-
-### 👤 Maintainer
-
-**Jal Patel** ([@Special258](https://github.com/Special258))
-**vandangujarati** ([@vandangujarati](https://github.com/vandangujarati))
-
-
-⭐ **If Hive interests you, consider giving this repo a star — it really helps!** ⭐ 🐝🍯
-
-<img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&customColorList=6,11,20&height=110&section=footer&animation=twinkling" width="100%"/>
-
-</div>
+## Backups
+- **Process**: Stop the server and simply copy `data/hive-data.json` to a secure location.
+- **Restore**: Overwrite `data/hive-data.json` and restart the server.

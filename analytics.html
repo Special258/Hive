@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HIVE – Analytics</title>
+<link rel="stylesheet" href="style.css"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  .analytics-grid { display:grid; grid-template-columns:2fr 1fr; gap:18px; margin-bottom:18px; }
+  .analytics-card {
+    background: linear-gradient(145deg,rgba(35,34,49,.78),rgba(19,19,29,.75));
+    border:1px solid rgba(255,255,255,.10);
+    border-radius:20px;
+    padding:24px;
+    box-shadow: inset 0 1px rgba(255,255,255,.035), 0 12px 35px rgba(0,0,0,.12);
+  }
+  .analytics-card h2 { margin:0 0 4px; font-size:17px; }
+  .analytics-card .sub { margin:0 0 20px; color:var(--muted); font-size:13px; }
+  .bar-chart { display:flex; align-items:flex-end; gap:14px; height:180px; padding-top:10px; }
+  .bar-col { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; }
+  .bar { width:100%; max-width:34px; border-radius:8px 8px 3px 3px; background:var(--grad); position:relative; min-height:4px; transition:transform .2s; }
+  .bar:hover { transform:scaleY(1.03); }
+  .bar-val { font-size:11px; color:#cbc7d6; margin-bottom:6px; font-weight:700; }
+  .bar-lbl { margin-top:8px; font-size:11px; color:var(--muted); text-align:center; }
+  .donut-wrap { display:flex; align-items:center; gap:22px; }
+  .donut-legend { display:flex; flex-direction:column; gap:10px; flex:1; }
+  .legend-row { display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:13px; }
+  .legend-left { display:flex; align-items:center; gap:8px; color:#cbc7d6; }
+  .legend-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+  .legend-val { font-weight:800; color:#fff; }
+  .empty-note { color:var(--muted); font-size:13px; padding:30px 0; text-align:center; }
+  .trend-row { display:flex; align-items:flex-end; gap:0; height:120px; margin-top:6px; }
+  .metric-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-bottom:18px; }
+  .list-row { display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-bottom:1px solid rgba(255,255,255,.07); font-size:13px; }
+  .list-row:last-child { border-bottom:none; }
+  .list-row-left { display:flex; align-items:center; gap:10px; color:#cbc7d6; }
+  .rank { width:22px; height:22px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; background:rgba(139,92,246,.18); color:#c4b5fd; flex-shrink:0; }
+  .pct-bar-track { flex:1; height:6px; border-radius:99px; background:rgba(255,255,255,.06); overflow:hidden; margin:0 14px; }
+  .pct-bar-fill { height:100%; border-radius:99px; background:var(--grad); }
+  @media (max-width:1050px) { .analytics-grid { grid-template-columns:1fr; } .metric-strip { grid-template-columns:repeat(2,1fr); } }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow bg-glow-blue"></div>
+<div class="bg-glow bg-glow-purple"></div>
+
+<div class="app-layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo"><span class="logo-text">HIVE</span></div>
+    </div>
+
+        <div class="sidebar-nav">
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">SWITCH ROLE</div>
+        <a href="admin.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span style="color: #4A9EFF;">Admin Portal</span>
+        </a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">MAIN</div>
+        <a href="dashboard.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12L12 3l9 9"/><path d="M5 10v10h4v-6h6v6h4V10"/></svg>
+          <span>Overview</span>
+        </a>
+        <a href="sessions.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><polyline points="10 9 15 12 10 15"/></svg>
+          <span>Live Sessions</span>
+        </a>
+        <a href="skills.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20a6 6 0 0112 0"/></svg>
+          <span>My Skills</span>
+        </a>
+        <a href="profile.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>My Profile</span>
+        </a>
+        <a href="connections.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          <span>Connections</span>
+          <span class="nav-badge" id="badge-nav-connections" style="display:none">0</span>
+        </a>
+        <a href="messages.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <span>Messages</span>
+          <span class="nav-badge" id="badge-nav-messages" style="display:none">0</span>
+        </a>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">INSIGHTS</div>
+        <a href="analytics.html" class="nav-item active">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>Analytics</span>
+        </a>
+        <a href="skill-matching.html" class="nav-item ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span>Skill Matching</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="user-card" onclick="window.location.href='profile.html'" style="cursor: pointer;">
+        <div class="user-avatar" id="sidebar-avatar">?</div>
+        <div class="user-info">
+          <div class="user-name" id="sidebar-name">HIVE User</div>
+          <div class="user-role">Learner · Tutor</div>
+        </div>
+        <div class="seu-badge" id="sidebar-seu">0 SEU</div>
+      </div>
+
+      <button class="sign-out-btn" type="button" onclick="handleSignOut()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        <span>Sign Out</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <header class="page-header">
+      <div class="page-header-row">
+        <div>
+          <h1>Analytics</h1>
+          <p>How your skill exchange activity is trending on HIVE.</p>
+        </div>
+      </div>
+    </header>
+
+    <div id="analytics-root">
+      <div class="empty-note">Loading your analytics…</div>
+    </div>
+  </main>
+</div>
+
+<script type="module" src="/app.js"></script>
+<script>
+const ICONS = {
+  sessions: '<path d="M20 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/>',
+  rating: '<path d="M12 2.5l2.95 5.98 6.6.96-4.78 4.66 1.13 6.58L12 17.58l-5.9 3.1 1.13-6.58-4.78-4.66 6.6-.96L12 2.5z"/>',
+  seu: '<circle cx="12" cy="12" r="9"/><path d="M8.5 12.25 10.75 14.5 15.75 9.5"/>',
+  skills: '<circle cx="8.5" cy="8.5" r="2.5"/><circle cx="16.5" cy="10.5" r="2.5"/><path d="M4 20v-.5A3.5 3.5 0 0 1 7.5 16H9M13 20v-.5a3.5 3.5 0 0 1 3.5-3.5H17"/>'
+};
+
+const TONE_COLORS = { violet: '#8b5cf6', pink: '#ec4899', green: '#22c55e', blue: '#60a5fa' };
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+}
+
+function statCard(icon, value, label, detail, tone) {
+  return `
+    <article class="react-stat-card react-stat-${tone}">
+      <div class="react-stat-top">
+        <span class="react-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">${ICONS[icon]}</svg></span>
+      </div>
+      <div class="react-stat-value">${escapeHtml(value)}</div>
+      <div class="react-stat-label">${escapeHtml(label)}</div>
+      <div class="react-stat-detail"><span></span>${escapeHtml(detail)}</div>
+    </article>
+  `;
+}
+
+function buildBarChart(entries) {
+  // entries: [{label, value}]
+  const max = Math.max(1, ...entries.map(e => e.value));
+  return `
+    <div class="bar-chart">
+      ${entries.map(e => `
+        <div class="bar-col">
+          <div class="bar-val">${e.value}</div>
+          <div class="bar" style="height:${Math.max(4, Math.round((e.value / max) * 150))}px"></div>
+          <div class="bar-lbl">${escapeHtml(e.label)}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function buildDonut(entries) {
+  // entries: [{label, value, color}]
+  const total = entries.reduce((sum, e) => sum + e.value, 0);
+  if (!total) return '<div class="empty-note">No skill data yet.</div>';
+  let cumulative = 0;
+  const radius = 46, circumference = 2 * Math.PI * radius;
+  const segments = entries.map(e => {
+    const fraction = e.value / total;
+    const dash = fraction * circumference;
+    const gap = circumference - dash;
+    const offset = -cumulative * circumference;
+    cumulative += fraction;
+    return `<circle r="${radius}" cx="60" cy="60" fill="none" stroke="${e.color}" stroke-width="16" stroke-dasharray="${dash} ${gap}" stroke-dashoffset="${offset}" transform="rotate(-90 60 60)"/>`;
+  }).join('');
+  return `
+    <div class="donut-wrap">
+      <svg width="120" height="120" viewBox="0 0 120 120">${segments}</svg>
+      <div class="donut-legend">
+        ${entries.map(e => `
+          <div class="legend-row">
+            <div class="legend-left"><span class="legend-dot" style="background:${e.color}"></span>${escapeHtml(e.label)}</div>
+            <span class="legend-val">${e.value}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function buildRankList(entries) {
+  // entries: [{label, value}] sorted desc
+  const max = Math.max(1, ...entries.map(e => e.value));
+  return `
+    <div>
+      ${entries.map((e, i) => `
+        <div class="list-row">
+          <div class="list-row-left"><span class="rank">${i + 1}</span>${escapeHtml(e.label)}</div>
+          <div class="pct-bar-track"><div class="pct-bar-fill" style="width:${Math.round((e.value / max) * 100)}%"></div></div>
+          <strong>${e.value}</strong>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+async function loadAnalytics() {
+  const root = document.getElementById('analytics-root');
+  const currentUser = JSON.parse(localStorage.getItem('hiveUser') || 'null');
+
+  if (!currentUser || !currentUser.email) {
+    root.innerHTML = '<div class="error-box" style="padding:15px;border-radius:12px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);color:#fca5a5;">Please sign in to view your analytics.</div>';
+    return;
+  }
+
+  try {
+    const token = localStorage.getItem('token');
+    const response = await fetch('/api/dashboard', { headers: { 'Authorization': `Bearer ${token}` } });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Could not load analytics.');
+
+    const { user, stats, sessions = [], matches = [], connections = [] } = data;
+
+    // Sidebar user card
+    document.getElementById('sidebar-name').textContent = user.name || 'HIVE User';
+    document.getElementById('sidebar-avatar').textContent = (user.name || '?').split(/\s+/).map(p => p[0]).join('').slice(0, 2).toUpperCase();
+    document.getElementById('sidebar-seu').textContent = `${stats.seu || 0} SEU`;
+
+    // Skills breakdown (teach vs learn) from /api/skills
+    const skillsResponse = await fetch('/api/skills', { headers: { 'Authorization': `Bearer ${token}` } });
+    const skillsData = await skillsResponse.json();
+    const allSkills = Array.isArray(skillsData.skills) ? skillsData.skills : [];
+    const teachCount = allSkills.filter(s => s.type === 'teach').length;
+    const learnCount = allSkills.filter(s => s.type === 'learn').length;
+
+    // Session status breakdown
+    const statusCounts = sessions.reduce((acc, s) => {
+      const key = s.status || 'other';
+      acc[key] = (acc[key] || 0) + 1;
+      return acc;
+    }, {});
+
+    // Top matches by percentage
+    const topMatches = [...matches]
+      .sort((a, b) => (b.matchPercentage || 0) - (a.matchPercentage || 0))
+      .slice(0, 5)
+      .map(m => ({ label: m.name || 'HIVE User', value: Number(m.matchPercentage || 0) }));
+
+    // SEU earned per session (bar chart, capped at 8 most recent)
+    const seuBars = sessions.slice(0, 8).map(s => ({
+      label: (s.title || s.topic || 'Session').split(' ').slice(0, 2).join(' '),
+      value: Number(s.seu || 0)
+    }));
+
+    root.innerHTML = `
+      <div class="react-stats-grid" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-bottom:18px;">
+        ${statCard('sessions', String(stats.sessions || 0), 'Active Sessions', 'Currently tracked', 'violet')}
+        ${statCard('rating', String(stats.rating || 0), 'Average Rating', 'From past exchanges', 'pink')}
+        ${statCard('seu', String(stats.seu || 0), 'SEU Balance', 'Skill exchange units', 'green')}
+        ${statCard('skills', String(stats.skills || 0), 'Total Skills', `${teachCount} teach · ${learnCount} learn`, 'blue')}
+      </div>
+
+      <div class="analytics-grid">
+        <div class="analytics-card">
+          <h2>SEU per Session</h2>
+          <p class="sub">Skill Exchange Units tied to your tracked sessions.</p>
+          ${seuBars.length ? buildBarChart(seuBars) : '<div class="empty-note">No sessions yet — join one to see SEU activity.</div>'}
+        </div>
+
+        <div class="analytics-card">
+          <h2>Skill Mix</h2>
+          <p class="sub">What you teach vs. what you're learning.</p>
+          ${buildDonut([
+            { label: 'Teaching', value: teachCount, color: '#8b5cf6' },
+            { label: 'Learning', value: learnCount, color: '#ec4899' }
+          ])}
+        </div>
+      </div>
+
+      <div class="analytics-grid">
+        <div class="analytics-card">
+          <h2>Top Matches</h2>
+          <p class="sub">Users with the highest skill-complement score.</p>
+          ${topMatches.length ? buildRankList(topMatches) : '<div class="empty-note">No matches yet — add teach and learn skills to get matched.</div>'}
+        </div>
+
+        <div class="analytics-card">
+          <h2>Session Status</h2>
+          <p class="sub">Breakdown of your tracked sessions.</p>
+          ${Object.keys(statusCounts).length
+            ? buildDonut(Object.entries(statusCounts).map(([label, value], i) => ({
+                label: label.charAt(0).toUpperCase() + label.slice(1),
+                value,
+                color: [ '#8b5cf6', '#ec4899', '#22c55e', '#60a5fa', '#f59e0b' ][i % 5]
+              })))
+            : '<div class="empty-note">No sessions to summarize yet.</div>'}
+        </div>
+      </div>
+
+      <div class="analytics-card">
+        <h2>Connections</h2>
+        <p class="sub">People you've connected with on HIVE.</p>
+        ${connections.length
+          ? `<div class="bar-lbl" style="text-align:left;font-size:13px;color:#cbc7d6;">You have <strong style="color:#fff;">${connections.length}</strong> connection${connections.length === 1 ? '' : 's'} so far.</div>`
+          : '<div class="empty-note">No connections yet — reach out to a match to get started.</div>'}
+      </div>
+    `;
+  } catch (error) {
+    console.error('Analytics error:', error);
+    root.innerHTML = '<div class="error-box" style="padding:15px;border-radius:12px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);color:#fca5a5;">Could not load analytics. Please refresh and try again.</div>';
+  }
+}
+
+loadAnalytics();
+</script>
+
+</body>
+</html>

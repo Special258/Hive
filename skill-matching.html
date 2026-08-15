@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HIVE – Skill Matching</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+        .matching-page {
+            min-height: 100vh;
+            padding: 42px;
+        }
+
+        .matching-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .matching-header h1 {
+            margin: 0;
+            font-size: 42px;
+            font-weight: 800;
+        }
+
+        .matching-header p {
+            margin-top: 8px;
+            color: rgba(255,255,255,.65);
+            font-size: 16px;
+        }
+
+        .matching-back {
+            text-decoration: none;
+            color: white;
+            border: 1px solid rgba(255,255,255,.15);
+            padding: 12px 18px;
+            border-radius: 12px;
+            background: rgba(255,255,255,.05);
+        }
+
+        .matching-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 24px;
+        }
+
+        .matching-card {
+            background: rgba(255,255,255,.055);
+            border: 1px solid rgba(255,255,255,.10);
+            border-radius: 22px;
+            padding: 25px;
+            backdrop-filter: blur(12px);
+        }
+
+        .matching-card h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .skill-section {
+            margin-bottom: 25px;
+        }
+
+        .skill-section-title {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,.5);
+            margin-bottom: 12px;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+        }
+
+        .skill-pill {
+            padding: 8px 13px;
+            border-radius: 999px;
+            background: rgba(168,85,247,.15);
+            border: 1px solid rgba(168,85,247,.3);
+            color: #e9d5ff;
+            font-size: 13px;
+        }
+
+        .match-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .match-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 18px;
+            border-radius: 17px;
+            background: rgba(255,255,255,.045);
+            border: 1px solid rgba(255,255,255,.08);
+        }
+
+        .match-user {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .match-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            background: linear-gradient(135deg,#a855f7,#ec4899);
+            color: white;
+        }
+
+        .match-user h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .match-user p {
+            margin: 5px 0 0;
+            color: rgba(255,255,255,.55);
+            font-size: 13px;
+        }
+
+        .match-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .match-score {
+            font-weight: 800;
+            color: #86efac;
+            font-size: 14px;
+        }
+
+        .match-button {
+            border: none;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 700;
+            background: linear-gradient(135deg,#a855f7,#c026d3);
+        }
+
+        .empty-matches {
+            text-align: center;
+            padding: 55px 20px;
+            color: rgba(255,255,255,.55);
+        }
+
+        .empty-matches-icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .loading {
+            color: rgba(255,255,255,.6);
+            padding: 20px 0;
+        }
+
+        .error-box {
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(239,68,68,.12);
+            border: 1px solid rgba(239,68,68,.25);
+            color: #fca5a5;
+        }
+
+        @media (max-width: 900px) {
+            .matching-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .matching-page {
+                padding: 25px;
+            }
+
+            .matching-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="matching-page">
+
+    <div class="matching-header">
+        <div>
+            <h1>Skill Matching</h1>
+            <p>
+                Find HIVE users whose skills complement yours.
+            </p>
+        </div>
+
+        <a href="dashboard.html" class="matching-back">
+            ← Back to Dashboard
+        </a>
+    </div>
+
+
+    <div class="matching-grid">
+
+        <!-- YOUR SKILLS -->
+        <div class="matching-card">
+
+            <h2>Your Skills</h2>
+
+            <div class="skill-section">
+                <div class="skill-section-title">
+                    Skills I Teach
+                </div>
+
+                <div id="teaching-skills" class="skill-list">
+                    <div class="loading">Loading your skills...</div>
+                </div>
+            </div>
+
+
+            <div class="skill-section">
+                <div class="skill-section-title">
+                    Skills I Want to Learn
+                </div>
+
+                <div id="learning-skills" class="skill-list">
+                    <div class="loading">Loading your skills...</div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- MATCHES -->
+        <div class="matching-card">
+
+            <h2>Potential Matches</h2>
+
+            <div id="match-list" class="match-list">
+    <div class="empty-matches">
+        <div class="empty-matches-icon">⏳</div>
+        <h3>Finding your best matches...</h3>
+        <p>
+            HIVE is comparing your teaching and learning skills.
+        </p>
+    </div>
+</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+async function loadMySkills() {
+
+    const teachingContainer =
+        document.getElementById("teaching-skills");
+
+    const learningContainer =
+        document.getElementById("learning-skills");
+
+    const currentUser =
+        JSON.parse(localStorage.getItem("hiveUser") || "null");
+
+    if (!currentUser || !currentUser.email) {
+
+        teachingContainer.innerHTML =
+            '<div class="error-box">Please sign in to view your skills.</div>';
+
+        learningContainer.innerHTML = "";
+
+        return;
+    }
+    
+    async function fetchMySkills() {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch("/api/skills", {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error("Could not load skills.");
+            }
+
+        const data = await response.json();
+
+        /*
+         * Support common API response formats.
+         */
+        const skills =
+            Array.isArray(data)
+                ? data
+                : Array.isArray(data.skills)
+                    ? data.skills
+                    : [];
+
+
+        const teaching = skills.filter(skill => {
+
+            const type =
+                String(
+                    skill.type ||
+                    skill.role ||
+                    skill.category ||
+                    ""
+                ).toLowerCase();
+
+            return (
+                type.includes("teach") ||
+                type.includes("offer")
+            );
+
+        });
+
+
+        const learning = skills.filter(skill => {
+
+            const type =
+                String(
+                    skill.type ||
+                    skill.role ||
+                    skill.category ||
+                    ""
+                ).toLowerCase();
+
+            return (
+                type.includes("learn") ||
+                type.includes("want")
+            );
+
+        });
+
+
+        renderSkills(
+            teachingContainer,
+            teaching,
+            "You haven't added any teaching skills yet."
+        );
+
+        renderSkills(
+            learningContainer,
+            learning,
+            "You haven't added any learning skills yet."
+        );
+        // LOAD POTENTIAL MATCHES
+const matchList = document.getElementById("match-list");
+
+try {
+    const token = localStorage.getItem('token');
+    const matchResponse = await fetch("/api/matches", {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    const matchData = await matchResponse.json();
+
+    if (!matchResponse.ok) {
+        throw new Error(matchData.error || "Could not load matches.");
+    }
+
+    const matches = Array.isArray(matchData)
+        ? matchData
+        : Array.isArray(matchData.matches)
+            ? matchData.matches
+            : [];
+
+    if (!matches.length) {
+        matchList.innerHTML = `
+            <div class="empty-state-pro">
+                <div class="empty-icon-pro">🤝</div>
+                <h3>No matches found yet</h3>
+                <p>
+                    Add more teaching and learning skills to discover
+                    people you can learn from.
+                </p>
+            </div>
+        `;
+    } else {
+        matchList.innerHTML = matches.map(match => {
+            const initial = escapeHtml((match.firstName || match.name || "?").charAt(0).toUpperCase());
+            const teachTags = (match.canTeachYou || []).map(s => `<span class="skill-tag">${escapeHtml(s)}</span>`).join('');
+            const learnTags = (match.youCanTeach || []).map(s => `<span class="skill-tag">${escapeHtml(s)}</span>`).join('');
+            
+            return `
+            <div class="match-item">
+                <div class="match-header-row">
+                    <div class="match-user-meta">
+                        <div class="match-avatar-pro">${initial}</div>
+                        <div class="match-info-pro">
+                            <h3>${escapeHtml(match.name || "HIVE User")}</h3>
+                            <div class="match-score-pro">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                ${Number(match.matchPercentage || 0)}% Match
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="match-reasons-grid">
+                    ${teachTags ? `
+                    <div class="reason-box teach">
+                        <h4><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg> They can teach you</h4>
+                        <div class="skill-tags">${teachTags}</div>
+                    </div>` : ''}
+
+                    ${learnTags ? `
+                    <div class="reason-box learn">
+                        <h4><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg> You can teach them</h4>
+                        <div class="skill-tags">${learnTags}</div>
+                    </div>` : ''}
+                </div>
+
+                <div class="match-actions-pro">
+                    <button class="btn-primary" data-connect-match="${escapeHtml(match.id)}">Connect</button>
+                </div>
+            </div>
+            `;
+        }).join("");
+    }
+
+        document.querySelectorAll('[data-connect-match]').forEach(button => button.addEventListener('click', async () => {
+            button.disabled = true;
+            try {
+                const response = await fetch('/api/connections', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+                    body: JSON.stringify({ targetUserId: button.dataset.connectMatch })
+                });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.error || 'Could not send connection request.');
+                button.textContent = 'Request sent';
+            } catch (connectError) {
+                button.disabled = false;
+                button.textContent = connectError.message.includes('already') ? 'Already connected' : 'Try again';
+                console.error('Connection error:', connectError);
+            }
+        }));
+
+} catch (matchError) {
+    console.error("Matching error:", matchError);
+
+    matchList.innerHTML = `
+        <div class="empty-matches">
+            <div class="empty-matches-icon">⚠️</div>
+            <h3>Could not load matches</h3>
+            <p>Please refresh the page and try again.</p>
+        </div>
+    `;
+}
+
+    } catch (error) {
+
+        console.error("Skill Matching:", error);
+
+        teachingContainer.innerHTML =
+            '<div class="error-box">Could not load your skills.</div>';
+
+        learningContainer.innerHTML = "";
+    }
+}
+
+    await fetchMySkills();
+}
+
+
+function renderSkills(container, skills, emptyMessage) {
+
+    if (!skills.length) {
+
+        container.innerHTML =
+            `<span style="color:rgba(255,255,255,.45);font-size:13px;">
+                ${emptyMessage}
+            </span>`;
+
+        return;
+    }
+
+
+    container.innerHTML = skills.map(skill => {
+
+        const name =
+            skill.name ||
+            skill.skill ||
+            skill.title ||
+            "Unnamed skill";
+
+        return `
+            <span class="skill-pill">
+                ${escapeHtml(name)}
+            </span>
+        `;
+
+    }).join("");
+}
+
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+
+loadMySkills();
+</script>
+
+</body>
+</html>
